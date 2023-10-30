@@ -100,6 +100,17 @@ app.post("/register", async (req, res) => {
   }
 });
 
+app.get('/fetchData', (req, res) => {
+  // Access data from the query parameters
+  const data = req.query;
+
+  // Display the data in the terminal
+  console.log('Data received from the front end:', data);
+
+  // Send a response back to the front end
+  res.send('Data received and logged in the terminal.');
+});
+
 //endpoint to verify the email
 app.get("/verify/:token", async (req, res) => {
   try {
