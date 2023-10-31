@@ -100,7 +100,7 @@ app.post("/register", async (req, res) => {
   }
 });
 
-app.get('/fetchData', (req, res) => {
+app.post('/fetchData', (req, res) => {
   // Access data from the query parameters
   const data = req.query;
 

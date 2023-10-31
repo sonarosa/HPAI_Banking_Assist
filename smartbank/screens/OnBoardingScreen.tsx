@@ -3,6 +3,7 @@ import { Image, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { LoginNavigationProps } from "../navigation/LoginStack";
+import { trackEvent }  from "../navigation/Navigation";
 
 export default function OnBoardingScreen() {
   const navigation = useNavigation<LoginNavigationProps>();
@@ -25,7 +26,19 @@ export default function OnBoardingScreen() {
       <View>
         <Pressable
           className="h-12 w-full items-center justify-center rounded-xl bg-red-500"
-          onPress={() => navigation.navigate("SignUp")}
+          onPress={() => 
+          {
+            const eventData = {
+              buttonName: 'example_button',
+              timestamp: Date.now(),
+            };
+            trackEvent('button_click', eventData);
+            
+            navigation.navigate("SignUp")
+          }
+            
+          }
+
         >
           <Text className="text-[16px] font-semibold text-white">Sign up</Text>
         </Pressable>
