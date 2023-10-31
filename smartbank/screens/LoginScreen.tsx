@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigation } from "@react-navigation/native";
 import * as Linking from "expo-linking";
 import { useEffect } from "react";
+import { Image} from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import {
   ActivityIndicator,
@@ -45,8 +46,7 @@ export default function LoginScreen() {
     <SafeAreaView className="flex-1 bg-white pt-1">
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        className="flex-1"
-      >
+        className="flex-1">
         <View className="flex-1 pb-7">
           <View className="h-11 w-full justify-center">
             <Pressable
@@ -57,11 +57,20 @@ export default function LoginScreen() {
             </Pressable>
           </View>
           <View className="flex-1 px-4">
-            <Text className="mt-1 text-[34px] font-bold text-[#0C212C]">
+            <Image
+              style={{
+                resizeMode: "contain",
+                width: 200,
+                height: 100,
+                left: 10,
+              }}
+              source={require("../assets/sib.png")}
+            />
+            <Text className="mt-5 text-[34px] font-bold text-[#0C212C] text-center">
               Login
             </Text>
-            <Text className="mt-2 text-[13px] font-medium text-neutral-600">
-              Enter the email address you use to sign in to SmartBank.
+            <Text className="mt-5 text-[13px] font-medium text-red-600">
+              Enter the email address to sign in to South Indian Bank App.
             </Text>
             <Controller
               control={control}
@@ -95,6 +104,10 @@ export default function LoginScreen() {
           <View className="px-4">
             <Pressable
               disabled={isSubmitting}
+              style={{
+                backgroundColor: "#FF0000", // Red color
+                borderRadius: 8, // You can adjust the border radius as needed
+              }}
               className={classNames(
                 "h-12 w-full flex-row items-center justify-center space-x-2 rounded-xl",
                 isValid ? "bg-primary-500" : "bg-neutral-200"
@@ -118,7 +131,12 @@ export default function LoginScreen() {
               })}
             >
               <Text
-                className={classNames(
+              style={{
+                color: "#FFFFF", // Red color
+                borderRadius: 8, // You can adjust the border radius as needed
+              }}
+                className={
+                  classNames(
                   "text-[16px] font-bold",
                   isValid ? "text-white" : "text-neutral-400"
                 )}
