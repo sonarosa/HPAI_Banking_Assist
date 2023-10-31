@@ -90,7 +90,7 @@ export default function LoginScreen() {
                 />
               )}
             />
-
+          
             <Text className="mt-4 w-full text-center text-[13px] font-bold text-primary-500">
               {"Don't have an account? "}
               <Text

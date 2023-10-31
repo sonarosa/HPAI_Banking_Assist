@@ -58,7 +58,7 @@ export default function SignUpScreen() {
           </View>
           <View className="flex-1 px-4">
             <Text className="mt-1 text-[34px] font-bold text-[#0C212C]">
-              What's your email?
+              Register
             </Text>
             <Text className="mt-2 text-[13px] font-medium text-neutral-600">
               Enter the email address you’d like to use to sign in to SmartBank.
