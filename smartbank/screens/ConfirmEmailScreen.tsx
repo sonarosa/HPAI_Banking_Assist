@@ -59,7 +59,7 @@ export default function ConfirmEmailScreen() {
             onPress={() => Linking.openURL("googlegmail://")}
           >
             <Text
-              className={classNames("text-[16px] font-bold text-[#134555]")}
+              className={classNames("text-[16px] font-bold text-[#134555] bg-white-500")}
             >
               Open email app
             </Text>
@@ -69,7 +69,7 @@ export default function ConfirmEmailScreen() {
               "h-12 w-full items-center justify-center rounded-xl bg-primary-600"
             )}
           >
-            <Text className={classNames("text-[16px] font-bold text-white")}>
+            <Text className={classNames("text-[16px] font-bold text-black")}>
               I didn't receive my email
             </Text>
           </Pressable>
