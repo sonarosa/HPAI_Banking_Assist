@@ -45,13 +45,19 @@ export default function ConfirmEmailScreen() {
           />
         </View>
         <View className="px-4">
-          <Text className="mt-1 text-center text-[34px] font-bold text-white" >
+          <Text className="mt-1 text-center text-[34px] font-bold text-black" >
             Confirm your email
           </Text>
-          <Text className="mt-2 mb-8 text-center text-[13px] font-medium text-neutral-300">
+          <Text className="mt-2 mb-8 text-center text-[13px] font-medium text-black-300">
             {`We just sent you an email to ${email}`}
           </Text>
           <Pressable
+          style={{
+            backgroundColor: "#A52A2A", 
+            borderColor:"#FFFFFF",
+            borderWidth:1,// Change the background color
+            borderRadius: 8,
+          }}
             className={classNames(
               "mb-4 h-12 w-full items-center justify-center rounded-xl bg-[#E8F569]"
             )}
@@ -59,17 +65,23 @@ export default function ConfirmEmailScreen() {
             onPress={() => Linking.openURL("googlegmail://")}
           >
             <Text
-              className={classNames("text-[16px] font-bold text-[#134555] bg-white-500")}
+              className={classNames("text-[16px] font-bold text-[#134555] bg-white-500 color-white")}
             >
               Open email app
             </Text>
           </Pressable>
           <Pressable
+          style={{
+            backgroundColor: "#FFFFFF", 
+            borderColor:"#A52A2A",
+            borderWidth:1,// Change the background color
+            borderRadius: 8,
+          }}
             className={classNames(
               "h-12 w-full items-center justify-center rounded-xl bg-primary-600"
             )}
           >
-            <Text className={classNames("text-[16px] font-bold text-black")}>
+            <Text className={classNames("text-[16px] font-bold text-red ")}>
               I didn't receive my email
             </Text>
           </Pressable>
