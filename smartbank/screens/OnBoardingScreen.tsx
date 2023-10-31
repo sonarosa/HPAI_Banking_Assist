@@ -29,10 +29,11 @@ export default function OnBoardingScreen() {
           onPress={() => 
           {
             const eventData = {
-              buttonName: 'example_button',
+              event: 'button pressed',
+              eventName: 'signin_button',
               timestamp: Date.now(),
             };
-            trackEvent('button_click', eventData);
+            trackEvent(eventData);
             
             navigation.navigate("SignUp")
           }
