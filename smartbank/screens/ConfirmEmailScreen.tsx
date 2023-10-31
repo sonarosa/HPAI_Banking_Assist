@@ -24,7 +24,7 @@ export default function ConfirmEmailScreen() {
 
   return (
     <LinearGradient
-      colors={["#265565", "#288FB1", "#265565"]}
+      colors={["#FFFADA", "#FFFFFF", "#D30000"]}
       className="flex-1"
     >
       <SafeAreaView className="flex-1 pt-1 pb-7">
@@ -38,13 +38,14 @@ export default function ConfirmEmailScreen() {
         </View>
         <View className="flex-1">
           <Image
-            style={{ resizeMode: "cover" }}
+            style={{ resizeMode: "contain",width:300,
+            height: 100 ,left:40}}
             className="w-full flex-1"
-            source={require("../assets/planes.png")}
+            source={require("../assets/sib.png")}
           />
         </View>
         <View className="px-4">
-          <Text className="mt-1 text-center text-[34px] font-bold text-white">
+          <Text className="mt-1 text-center text-[34px] font-bold text-white" >
             Confirm your email
           </Text>
           <Text className="mt-2 mb-8 text-center text-[13px] font-medium text-neutral-300">
