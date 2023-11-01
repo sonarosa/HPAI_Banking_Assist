@@ -3,8 +3,8 @@ import { Image, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { LoginNavigationProps } from "../navigation/LoginStack";
-import { trackEvent }  from "../navigation/Navigation";
-import PersistentNotification from '../eventTracking/NotificationService';
+import { trackEvent }  from "../eventTracking/EventTracking";
+
 
 export default function OnBoardingScreen() {
   const navigation = useNavigation<LoginNavigationProps>();
