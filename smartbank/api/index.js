@@ -9,6 +9,8 @@ const port = 8000;
 const cors = require("cors");
 
 const fs = require('fs');
+const { exec } = require('child_process');
+const { spawn } = require('child_process');
 
 app.use(cors());
 app.use(cors({origin: true, credentials: true}));
@@ -143,6 +145,50 @@ app.post('/fetchData', (req, res) => {
   });
   writeStream.end(); // Close the write stream when done
 });
+
+app.post('/assistant', (req, res) => {
+  const data = req.body;
+  
+  data.timestamp = new Date(data.timestamp);
+
+  const options = {
+    timeZone: 'Asia/Kolkata',
+    hour12: false, // Use 24-hour time format
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  };
+
+  // Format the date in IST
+  data.timestamp = data.timestamp.toLocaleString('en-IN', options);
+  
+  // Define the Python script and the argument
+  const pythonScript = 'C:/Users/91892/Desktop/HPAI_Banking_Assist/models/python-temp/model-temp.py';
+  const argument = JSON.stringify(data);
+
+  // Execute the Python script
+  const pythonProcess = spawn('python', [pythonScript, argument]);
+
+  let pythonScriptOutput = '';
+
+  // Capture the Python script's output
+  pythonProcess.stdout.on('data', (data) => {
+    pythonScriptOutput += data.toString();
+  });
+
+  // Handle the Python script's exit
+  pythonProcess.on('exit', (code) => {
+    if (code === 0) {
+      res.send(pythonScriptOutput);
+    } else {
+      res.status(500).send('Error executing Python script');
+    }
+  });
+});
+
 
 //endpoint to verify the email
 app.get("/verify/:token", async (req, res) => {
