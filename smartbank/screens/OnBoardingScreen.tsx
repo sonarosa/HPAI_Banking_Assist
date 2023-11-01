@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { LoginNavigationProps } from "../navigation/LoginStack";
 import { trackEvent }  from "../navigation/Navigation";
+import PersistentNotification from '../eventTracking/NotificationService';
 
 export default function OnBoardingScreen() {
   const navigation = useNavigation<LoginNavigationProps>();
