@@ -7,6 +7,11 @@ const nodemailer = require("nodemailer");
 const app = express();
 const port = 8000;
 const cors = require("cors");
+
+const fs = require('fs');
+const { exec } = require('child_process');
+const { spawn } = require('child_process');
+
 app.use(cors());
 app.use(cors({origin: true, credentials: true}));
 
@@ -100,16 +105,90 @@ app.post("/register", async (req, res) => {
   }
 });
 
-app.get('/fetchData', (req, res) => {
+app.post('/fetchData', (req, res) => {
   // Access data from the query parameters
-  const data = req.query;
+  const data = req.body;
+  data.timestamp = new Date(data.timestamp);
 
+  const options = {
+    timeZone: 'Asia/Kolkata',
+    hour12: false, // Use 24-hour time format
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  };
+
+  // Format the date in IST
+  data.timestamp = data.timestamp.toLocaleString('en-IN', options);
   // Display the data in the terminal
   console.log('Data received from the front end:', data);
 
-  // Send a response back to the front end
-  res.send('Data received and logged in the terminal.');
+  // Save the data to a local file (append)
+  const filePath = 'C:/Users/91892/Desktop/HPAI_Banking_Assist/smartbank/eventTracking/data.json'; // Specify the path and filename
+  const jsonData = JSON.stringify(data, null, 2) + '\n'; // Convert data to JSON format with indentation and add a newline character
+
+  // Create a write stream to append the JSON data to the file
+  const writeStream = fs.createWriteStream(filePath, { flags: 'a' });
+
+  // Write the JSON data to the file
+  writeStream.write(jsonData + ',', (err) => {
+    if (err) {
+      console.error('Error while appending data to file:', err);
+      res.status(500).send('Error appending data to file');
+    } else {
+      console.log('Data appended to file:', filePath);
+      res.send('Data received, logged in the terminal, and appended to the file.');
+    }
+  });
+  writeStream.end(); // Close the write stream when done
 });
+
+app.post('/assistant', (req, res) => {
+  const data = req.body;
+  
+  data.timestamp = new Date(data.timestamp);
+
+  const options = {
+    timeZone: 'Asia/Kolkata',
+    hour12: false, // Use 24-hour time format
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  };
+
+  // Format the date in IST
+  data.timestamp = data.timestamp.toLocaleString('en-IN', options);
+  
+  // Define the Python script and the argument
+  const pythonScript = 'C:/Users/91892/Desktop/HPAI_Banking_Assist/models/python-temp/model-temp.py';
+  const argument = JSON.stringify(data);
+
+  // Execute the Python script
+  const pythonProcess = spawn('python', [pythonScript, argument]);
+
+  let pythonScriptOutput = '';
+
+  // Capture the Python script's output
+  pythonProcess.stdout.on('data', (data) => {
+    pythonScriptOutput += data.toString();
+  });
+
+  // Handle the Python script's exit
+  pythonProcess.on('exit', (code) => {
+    if (code === 0) {
+      res.send(pythonScriptOutput);
+    } else {
+      res.status(500).send('Error executing Python script');
+    }
+  });
+});
+
 
 //endpoint to verify the email
 app.get("/verify/:token", async (req, res) => {
