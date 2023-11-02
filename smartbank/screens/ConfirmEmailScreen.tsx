@@ -1,79 +1,79 @@
+import React from "react";
+import { View, Text, SafeAreaView, Pressable, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { LinearGradient } from "expo-linear-gradient";
-import { Image, Linking, Pressable, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-
-import {
-  LoginNavigationProps,
-  LoginStackParams,
-} from "../navigation/LoginStack";
-import { classNames } from "../utils/classNames";
-
-type RouteProps = NativeStackScreenProps<
-  LoginStackParams,
-  "ConfirmEmail"
->["route"];
+import { useNavigation } from "@react-navigation/native";
 
 export default function ConfirmEmailScreen() {
-  const {
-    params: { email },
-  } = useRoute<RouteProps>();
-  const navigation = useNavigation<LoginNavigationProps>();
+  const navigation = useNavigation();
+
+  const featureIcons = [
+    { name: "cash", label: "BHIM UPI" },
+    { name: "contacts", label: "Pay to Contacts" },
+    { name: "shield", label: "Insurance" },
+    { name: "wallet", label: "Net Banking" },
+    { name: "calendar", label: "Bank Holidays" },
+    { name: "calculator", label: "Calculator" },
+    { name: "list", label: "Deposit Rates" },
+    { name: "payment", label: "Online Payment" },
+  ];
 
   return (
-    <LinearGradient
-      colors={["#265565", "#288FB1", "#265565"]}
-      className="flex-1"
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#dbe4f1" }}>
+      <Image
+  source={require("../assets/dashboard.jpg")}
+  style={{ flex: 1, resizeMode: "contain", alignSelf: "flex-start" }}
+/>
+
+      <View
+        style={{
+          backgroundColor: "#c7222a",
+          width: "92.8888%",
+          height: "5.4%",
+          padding: 10,
+          borderRadius: 5,
+          alignContent: "center",
+          alignSelf: "center",
+        }}
+      >
+        <Text style={{ fontSize: 18, fontWeight: "bold", color: "white", textAlign: "center" }}>
+          REGISTER NOW
+        </Text>
+      </View>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          backgroundColor: "white",
+          paddingHorizontal: 1,
+        }}
+      >
+        <View style={{ flexDirection: "row", justifyContent: "space-between", flexWrap: "wrap" }}>
+          {featureIcons.map((icon, index) => (
+            <FeatureCard key={index} icon={icon} />
+          ))}
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+function FeatureCard({ icon }) {
+  return (
+    <View
+      style={{
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "white",
+        borderRadius: 10,
+        width: "25%",
+        height: "27%",
+        marginBottom: 28.80,
+      }}
     >
-      <SafeAreaView className="flex-1 pt-1 pb-7">
-        <View className="h-11 w-full justify-center">
-          <Pressable
-            className="absolute top-0 left-0 h-11 w-11 items-center justify-center"
-            onPress={() => navigation.goBack()}
-          >
-            <Ionicons name="arrow-back" size={24} color="white" />
-          </Pressable>
-        </View>
-        <View className="flex-1">
-          <Image
-            style={{ resizeMode: "cover" }}
-            className="w-full flex-1"
-            source={require("../assets/planes.png")}
-          />
-        </View>
-        <View className="px-4">
-          <Text className="mt-1 text-center text-[34px] font-bold text-white">
-            Confirm your email
-          </Text>
-          <Text className="mt-2 mb-8 text-center text-[13px] font-medium text-neutral-300">
-            {`We just sent you an email to ${email}`}
-          </Text>
-          <Pressable
-            className={classNames(
-              "mb-4 h-12 w-full items-center justify-center rounded-xl bg-[#E8F569]"
-            )}
-            // TODO: Replace with universal solution. https://github.com/includable/react-native-email-link
-            onPress={() => Linking.openURL("googlegmail://")}
-          >
-            <Text
-              className={classNames("text-[16px] font-bold text-[#134555]")}
-            >
-              Open email app
-            </Text>
-          </Pressable>
-          <Pressable
-            className={classNames(
-              "h-12 w-full items-center justify-center rounded-xl bg-primary-600"
-            )}
-          >
-            <Text className={classNames("text-[16px] font-bold text-white")}>
-              I didn't receive my email
-            </Text>
-          </Pressable>
-        </View>
-      </SafeAreaView>
-    </LinearGradient>
+      <Ionicons name={icon.name} size={26} color="black" />
+      <Text style={{ fontSize: 14, fontWeight: "bold", marginTop: 10 }}>
+        {icon.label}
+      </Text>
+    </View>
   );
 }
