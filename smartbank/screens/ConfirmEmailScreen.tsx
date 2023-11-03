@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, SafeAreaView, Pressable, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { Picker } from '@react-native-picker/picker';
 
 export default function ConfirmEmailScreen() {
   const navigation = useNavigation();
@@ -20,9 +21,9 @@ export default function ConfirmEmailScreen() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#dbe4f1" }}>
       <Image
-  source={require("../assets/dashboard.jpg")}
-  style={{ flex: 1, resizeMode: "contain", alignSelf: "flex-start" }}
-/>
+        source={require("../assets/dashboard.jpg")}
+        style={{ flex: 1, resizeMode: "contain", alignSelf: "flex-start" }}
+      />
 
       <View
         style={{
@@ -35,10 +36,13 @@ export default function ConfirmEmailScreen() {
           alignSelf: "center",
         }}
       >
-        <Text style={{ fontSize: 18, fontWeight: "bold", color: "white", textAlign: "center" }}>
-          REGISTER NOW
-        </Text>
+        <Pressable onPress={() => navigation.navigate("View_ifsc")}>
+          <Text style={{ fontSize: 18, fontWeight: "bold", color: "white", textAlign: "center" }}>
+          View_ifsc
+          </Text>
+        </Pressable>
       </View>
+
       <View
         style={{
           flex: 1,
