@@ -1,8 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigation } from "@react-navigation/native";
-import * as Linking from "expo-linking";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Image } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import {
@@ -17,6 +16,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { z } from "zod";
+import * as LocalAuthentication from 'expo-local-authentication';
 
 import { LoginNavigationProps } from "../navigation/LoginStack";
 import { supabase } from "../supabase";
@@ -38,9 +38,41 @@ export default function LoginScreen() {
     mode: "onChange",
   });
 
+  const [isFingerprintAvailable, setIsFingerprintAvailable] = useState(false);
+
   useEffect(() => {
     setFocus("password");
+
+    async function checkFingerprintAvailability() {
+      const isAvailable = await LocalAuthentication.hasHardwareAsync();
+      setIsFingerprintAvailable(isAvailable);
+    }
+
+    checkFingerprintAvailability();
   }, []);
+
+  const handleFingerprintAuth = async () => {
+    if (isFingerprintAvailable) {
+      const result = await LocalAuthentication.authenticateAsync({
+        promptMessage: "Authenticate with your fingerprint",
+      });
+
+      if (result.success) {
+        // Fingerprint authentication succeeded, navigate to the next dashboard page
+        navigation.navigate('Dashboard');
+      } else {
+        // Fingerprint authentication failed, show a pop-up for password entry
+        Alert.alert("Fingerprint Invalid", "Please enter your password.", [
+          { text: "OK" },
+        ]);
+      }
+    } else {
+      // Fingerprint authentication is not available on the device
+      Alert.alert("Fingerprint Not Available", "Fingerprint authentication is not supported on this device.", [
+        { text: "OK" },
+      ]);
+    }
+  };
 
   return (
     <SafeAreaView className="flex-1 bg-white pt-1">
@@ -75,38 +107,21 @@ export default function LoginScreen() {
             </Text>
             <Pressable
               style={{
-                backgroundColor: 'rgba(0, 0, 0, 0.4)', // Gray-black with less opacity
-                borderRadius: 8, // You can adjust the border radius as needed
-                flexDirection: 'row', // To align the icon and text horizontally
-                alignItems: 'center', 
-               
+                backgroundColor: 'rgba(0, 0, 0, 0.4)',
+                borderRadius: 8,
+                flexDirection: 'row',
+                alignItems: 'center',
               }}
               className={classNames(
                 "h-12 w-full flex-row items-center justify-center space-x-2 rounded-xl",
                 isValid ? "bg-primary-500" : "bg-neutral-200"
               )}
-              onPress={() => {
-                // Implement fingerprint functionality here
-
-                // Replace the fingerprint implementation with actual fingerprint logic
-                // For example, you can use Biometric Authentication APIs for fingerprint verification
-
-                // Check if fingerprint is valid
-                const isFingerprintValid = true; // Replace with actual fingerprint check
-
-                if (isFingerprintValid) {
-                  navigation.navigate("Home"); // Navigate to Home on successful fingerprint
-                } else {
-                  Alert.alert("Fingerprint Invalid", "Please enter your password.", [
-                    { text: "OK" },
-                  ]);
-                }
-              }}
+              onPress={handleFingerprintAuth}
             >
               <Text
                 style={{
-                  color: "white", // White color
-                  borderRadius: 8, // You can adjust the border radius as needed
+                  color: "white",
+                  borderRadius: 8,
                 }}
                 className={classNames(
                   "text-[16px] font-bold",
@@ -127,8 +142,8 @@ export default function LoginScreen() {
               render={({ field: { onChange, value, ref } }) => (
                 <TextInput
                   className="mt-6 h-14 w-full rounded-xl border-[1px] border-[#E7EAEB] px-3.5"
-                  textContentType="password" // Use the appropriate textContentType
-                  secureTextEntry={true} // Hide the password
+                  textContentType="password"
+                  secureTextEntry={true}
                   placeholder="Password"
                   placeholderTextColor="#2B6173"
                   editable={!isSubmitting}
