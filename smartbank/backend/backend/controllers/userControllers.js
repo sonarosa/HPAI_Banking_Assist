@@ -51,7 +51,7 @@ const registerUser = asyncHandler(async function(req,res) {
         res.status(400)
         throw new Error("User does not exists")
     }
-    
+
     if(user){
         res.status(201).json({
             accountHolder : user.accountHolder,
