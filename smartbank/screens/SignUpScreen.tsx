@@ -22,6 +22,7 @@ import { z } from "zod";
 import { LoginNavigationProps } from "../navigation/LoginStack";
 import { supabase } from "../supabase";
 import { classNames } from "../utils/classNames";
+import { trackEvent } from "../eventTracking/EventTracking";
 
 const schema = z.object({
   phoneNumber: z.string().min(6).max(15), // Adjust validation rules as needed
@@ -195,6 +196,13 @@ export default function SignUpScreen() {
               )}
               onPress={handleSubmit(async ({ phoneNumber }) => {
                 const redirectURL = Linking.createURL("");
+
+                const eventData = {
+                  event: 'button pressed',
+                  eventName: 'get otp button',
+                  timestamp: Date.now(),
+                };
+                trackEvent(eventData);
 
                 const { error } = await supabase.auth.signIn(
                   { phoneNumber },
