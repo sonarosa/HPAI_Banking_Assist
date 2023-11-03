@@ -7,6 +7,7 @@ import ConfirmEmailScreen from "../screens/ConfirmEmailScreen";
 import LoginScreen from "../screens/LoginScreen";
 import OnBoardingScreen from "../screens/OnBoardingScreen";
 import SignUpScreen from "../screens/SignUpScreen";
+import WelcomeScreen from "../screens/WelcomeScreen";
 
 export type LoginStackParams = {
   OnBoarding: undefined;
@@ -29,6 +30,7 @@ export function LoginStack() {
       <Stack.Screen name="OnBoarding" component={OnBoardingScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="SignUp" component={SignUpScreen} />
+      <Stack.Screen name="Dashboard" component={WelcomeScreen} />
       <Stack.Screen name="ConfirmEmail" component={ConfirmEmailScreen} />
     </Stack.Navigator>
   );

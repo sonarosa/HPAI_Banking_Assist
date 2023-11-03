@@ -2,41 +2,64 @@ const asyncHandler = require("express-async-handler");
 const Users = require("../models/usersModel");
 const generateToken = require("../config/generateToken");
 
+// Creates users for our database
+
+const createUser = asyncHandler(async function(req,res) {
+
+    const {accountHolder,accountNumber,ifsc,email,accountType,balance,phone} = (req.body) // initializing the req.body values
+    try {
+        const newUser = await Users.create({
+            accountHolder : accountHolder,
+            accountNumber : accountNumber,
+            ifsc : ifsc,
+            email : email,
+            accountType : accountType,
+            balance : balance,
+            phone : phone,
+        });
+    
+        if (newUser) {
+          res.status(201).json({ 
+            accountHolder : newUser.accountHolder,
+            accountNumber : newUser.accountNumber,
+            ifsc : newUser.ifsc,
+            email : newUser.email,
+            accountType : newUser.accountType,
+            balance :newUser.balance,
+            phone : newUser.phone,
+            });
+        } else {
+          res.status(400).json({ message: "Failed to create new user" });
+        }
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: err.message });
+    }
+})
+
 const registerUser = asyncHandler(async function(req,res) {
-    console.log("YOu are at backend")
-    const {userName,proPic,phone,email,DOB,password} = (req.body) // initializing the req.body values
-    const values = req.body                                  // to the array of variables
-    console.log(values)
-    console.log("hi");
-    if(!userName || !phone || !email || !DOB || !password){
+    const {accountNumber,phone} = (req.body) // initializing the req.body values
+    if(!accountNumber|| !phone){
         res.status(400)
         throw new Error("Please enter all the Feilds")
     }
-    const userExists = await Users.findOne({$or: [{email: email}, {phone: phone}]})
+    const user = await Users.findOne({$or: [{accountNumber: accountNumber}, {phone: phone}]})
     // Checking whether the user exists in the db
 
-    if(userExists){ 
+    if(!user){
         res.status(400)
-        throw new Error("User already exists")
+        throw new Error("User does not exists")
     }
     
-    const user = await Users.create({
-        userName : userName,
-        profilePic : proPic,
-        phone : phone,
-        email : email,
-        DOB : DOB,
-        password : password,
-        
-    })
     if(user){
         res.status(201).json({
-            _id : user._id,
-            userName : user.userName,
-            profilePic : user.proPic,
-            phone : user.phone,
+            accountHolder : user.accountHolder,
+            accountNumber : user.accountNumber,
             email : user.email,
-            DOB : user.DOB,
+            accountType : user.accountType,
+            balance : user.balance,
+            phone : user.phone,
             password : user.password,
             token : generateToken(user._id),
         })
@@ -48,51 +71,4 @@ const registerUser = asyncHandler(async function(req,res) {
 
 ////////////////////////////////////////////////////////////////////////
 
-const authUser = asyncHandler(async function(req,res){
-    const {email, password} = req.body
-    const user = await Users.findOne({$or: [{email: email}, {phone: email}]}) //email variable is given at phone
-                                                                // coz we allow the phone number login
-
-    if(user && await user.matchPassword(password)){
-        res.json({
-            _id : user._id,
-            userName : user.userName,
-            profilePic : user.proPic,
-            phone : user.phone,
-            email : user.email,
-            DOB : user.DOB,
-            password : user.password,
-            token : generateToken(user._id),
-        })
-    }
-})
-
-////////////////////////////////////////////////////////////////////////
-
-// /user?search = abhishek
-const allUsers = asyncHandler(async function(req,res){
-    const keyword = req.query.search ?{
-        $or : [
-            { userName : {$regex : req.query.search, $options : "i"}}
-        ],
-    }
-    :{}
-    // The above is a condition for searching users the ? is a kind of condition like 
-    // This same code in simple if else form :-
-
-    // let keyword = {};
-    // if (req.query.search) {
-    //     keyword = {
-    //         $or: [
-    //         { userName: { $regex: req.query.search, $options: "i" } }
-    //         ]    
-    //     };
-    // }
-    console.log(keyword);
-    const users = await Users.find(keyword).find({$ne : req.user._id})
-    // The above is a chained find in which first find gives data filtered
-    // by keyword next filter from the first filtered data
-    res.send(users)
-})
-
-module.exports = {registerUser, authUser, allUsers}
+module.exports = {registerUser,createUser}

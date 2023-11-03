@@ -1,60 +1,59 @@
-// User Name
-// profilePic
-// Phone
-// Email
-// DOB
-// Password
+// accountHolder
+// accountNumber
+// email
+// accountType
+// balance
+// phone
+// password
 
 const mongoose = require("mongoose")
 const bcrypt = require("bcryptjs")
 const userModel = mongoose.Schema(
     {
-        userName : { 
+        accountHolder : { 
             type : String,
             trim : true 
         },
-        profilePic : {
+
+        accountNumber : {
             type : String,
-            default : "https://as2.ftcdn.net/v2/jpg/02/29/75/83/1000_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg"
+            trim : true,
+            unique : true,
         },
+
+        ifsc : {
+            type : String,
+            trim : true,
+        },
+
+        email : {
+            type : String,
+            
+            trim : true
+        },
+
         phone : {
             type : String,
             trim : true,
             unique : true,
         },
 
-        email : {
+        accountType : {
             type : String,
-            unique : true,
             trim : true
         },
 
-        DOB : {
-            type : Date
+        balance : {
+            type : Number,
+            trim : true
         },
 
-        password : {
-            type : String
-        }
     },
     {
         timestamps : true
     }
 
 );
-
-userModel.methods.matchPassword = async function(enteredPassword){
-    const comparison = await bcrypt.compare(enteredPassword,this.password)
-    return comparison;
-}
-
-userModel.pre('save',async function(next){
-    if(!this.isModified){
-        next()
-    }
-    const salt = await bcrypt.genSalt(10)
-    this.password = await bcrypt.hash(this.password,salt) 
-})
 
 const Users = mongoose.model("Users", userModel)
 

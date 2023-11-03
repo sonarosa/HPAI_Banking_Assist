@@ -188,43 +188,45 @@ export default function SignUpScreen() {
             </Text>
             
             <Pressable
-              disabled={isSubmitting}
-              className={classNames(
-                "h-12 w-full flex-row items-center justify-center space-x-2 rounded-xl",
-                isValid ? "bg-primary-500" : "bg-neutral-200"
-              )}
-              onPress={handleSubmit(async ({ phoneNumber }) => {
-                const redirectURL = Linking.createURL("");
+  disabled={isSubmitting}
+  style={({ pressed }) => [
+    classNames(
+      "h-12 w-full flex-row items-center justify-center space-x-2 rounded-xl",
+      isValid ? "bg-primary-500" : "bg-neutral-200",
+      pressed && { backgroundColor: "#FF0000" } // Change the background color when pressed
+    ),
+  ]}
+  onPress={handleSubmit(async ({ phoneNumber }) => {
+    const redirectURL = Linking.createURL("");
 
-                const { error } = await supabase.auth.signIn(
-                  { phoneNumber },
-                  { redirectTo: redirectURL }
-                );
+    const { error } = await supabase.auth.signIn(
+      { phoneNumber },
+      { redirectTo: redirectURL }
+    );
 
-                if (error) {
-                  Alert.alert("An error occurred", error.message, [
-                    { text: "OK" },
-                  ]);
-                  return;
-                }
+    if (error) {
+      Alert.alert("An error occurred", error.message, [{ text: "OK" }]);
+      return;
+    }
 
-                navigation.navigate("ConfirmEmail", { phoneNumber });
-              })}
-            >
-              <Text
-              style={{
-                color: "#FFFFF", // Red color
-                borderRadius: 8, // You can adjust the border radius as needed
-              }}
-                className={classNames(
-                  "text-[16px] font-bold",
-                  isValid ? "text-white" : "text-neutral-400"
-                )}
-              >
-                Get OTP
-              </Text>
-              {isSubmitting && <ActivityIndicator />}
-            </Pressable>
+    navigation.navigate("ConfirmEmail", { phoneNumber });
+  })}
+>
+  <Text
+    style={{
+      color: "#FFFFF", // Red color
+      borderRadius: 8, // You can adjust the border radius as needed
+    }}
+    className={classNames(
+      "text-[16px] font-bold",
+      isValid ? "text-white" : "text-neutral-400"
+    )}
+  >
+    Get OTP
+  </Text>
+  {isSubmitting && <ActivityIndicator />}
+</Pressable>
+
           </View>
         </View>
       </KeyboardAvoidingView>
