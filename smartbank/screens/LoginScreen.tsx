@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { Image } from "react-native";
+import { ImageBackground, Image } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import {
   ActivityIndicator,
@@ -75,11 +75,13 @@ export default function LoginScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white pt-1">
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        className="flex-1"
-      >
+    <ImageBackground
+    source={require("../assets/sib_login_page.jpeg")} // Replace with the path to your background image
+    style={{ width: 400, height: 800, aspectRatio: 1.92 / 4 }}
+  resizeMode="stretch"
+  >
+     <SafeAreaView style={{ flex: 1, backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
         <View className="flex-1 pb-7">
           <View className="h-11 w-full justify-center">
             <Pressable
@@ -99,7 +101,7 @@ export default function LoginScreen() {
               }}
               source={require("../assets/sib.png")}
             />
-            <Text className="mt-5 text-[34px] font-bold text-[#0C212C] text-center">
+            <Text className="mt-5 text-[34px] font-bold text-[#0C212C] text-center color-white">
               Login
             </Text>
             <Text className="mt-5 text-[13px] font-medium text-red-600">
@@ -168,5 +170,6 @@ export default function LoginScreen() {
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
+    </ImageBackground>
   );
 }
