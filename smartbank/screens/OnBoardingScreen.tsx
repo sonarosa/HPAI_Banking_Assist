@@ -59,6 +59,14 @@ export default function OnBoardingScreen() {
             Log in
           </Text>
         </Pressable>
+        <Pressable
+          className="mt-4 h-12 w-full items-center justify-center rounded-xl bg-red-200"
+          onPress={() => navigation.navigate("ConfirmEmail")}
+        >
+          <Text className="text-[16px] font-semibold text-primary-500">
+            Dashboard
+          </Text>
+        </Pressable>
       </View>
     </SafeAreaView>
   );
