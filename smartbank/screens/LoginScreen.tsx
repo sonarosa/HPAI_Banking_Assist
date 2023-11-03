@@ -78,8 +78,8 @@ export default function LoginScreen() {
                 backgroundColor: 'rgba(0, 0, 0, 0.4)', // Gray-black with less opacity
                 borderRadius: 8, // You can adjust the border radius as needed
                 flexDirection: 'row', // To align the icon and text horizontally
-                alignItems: 'center', /
-                borderRadius: 8, // You can adjust the border radius as needed
+                alignItems: 'center', 
+               
               }}
               className={classNames(
                 "h-12 w-full flex-row items-center justify-center space-x-2 rounded-xl",
