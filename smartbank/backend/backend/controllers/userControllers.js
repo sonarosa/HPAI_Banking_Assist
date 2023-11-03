@@ -57,6 +57,7 @@ const registerUser = asyncHandler(async function(req,res) {
             accountHolder : user.accountHolder,
             accountNumber : user.accountNumber,
             email : user.email,
+            ifsc : user.ifsc,
             accountType : user.accountType,
             balance : user.balance,
             phone : user.phone,
