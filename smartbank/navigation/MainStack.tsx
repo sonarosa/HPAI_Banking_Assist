@@ -3,6 +3,7 @@ import {
   NativeStackScreenProps,
 } from "@react-navigation/native-stack";
 
+import BhimUpiScreen from "../screens/BhimUpiScreen";
 import ChooseAccountTypeScreen from "../screens/ChooseAccountTypeScreen";
 import ConfirmPasscodeScreen from "../screens/ConfirmPasscodeScreen";
 import CreatePasscodeScreen from "../screens/CreatePasscodeScreen";
@@ -23,6 +24,7 @@ export type MainStackParams = {
   CreatePasscode: undefined;
   ConfirmPasscode: undefined;
   PasscodeSetup: undefined;
+  BhimUPI: undefined;
 };
 
 const Stack = createNativeStackNavigator<MainStackParams>();
@@ -45,6 +47,8 @@ export function MainStack() {
       <Stack.Screen name="CreatePasscode" component={CreatePasscodeScreen} />
       <Stack.Screen name="ConfirmPasscode" component={ConfirmPasscodeScreen} />
       <Stack.Screen name="PasscodeSetup" component={PasscodeSetupScreen} />
+      <Stack.Screen name="BhimUPI" component={BhimUpiScreen} />
+
     </Stack.Navigator>
   );
 }

@@ -1,28 +1,48 @@
 import React from "react";
-import { View, Text, SafeAreaView, Pressable, Image } from "react-native";
+import { View, Text, SafeAreaView, Image, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-export default function ConfirmEmailScreen() {
+const DashboardScreen = () => {
   const navigation = useNavigation();
 
-  const featureIcons = [
-    { name: "cash", label: "BHIM UPI" },
-    { name: "contacts", label: "Pay to Contacts" },
-    { name: "shield", label: "Insurance" },
-    { name: "wallet", label: "Net Banking" },
-    { name: "calendar", label: "Bank Holidays" },
-    { name: "calculator", label: "Calculator" },
-    { name: "list", label: "Deposit Rates" },
-    { name: "payment", label: "Online Payment" },
-  ];
+  const handleFeaturePress = (featureLabel) => {
+    switch (featureLabel) {
+      case "BHIM UPI":
+        navigation.navigate("BhimUPI"); // Navigate to the BHIM UPI screen
+        break;
+      case "Pay to Contacts":
+        navigation.navigate("PayToContacts"); // Navigate to the Pay to Contacts screen
+        break;
+      case "Insurance":
+        navigation.navigate("InsuranceScreen"); // Navigate to the Insurance screen
+        break;
+      case "Net Banking":
+        navigation.navigate("NetBankingScreen"); // Navigate to the Net Banking screen
+        break;
+      case "Bank Holidays":
+        navigation.navigate("BankHolidaysScreen"); // Navigate to the Bank Holidays screen
+        break;
+      case "Calculator":
+        navigation.navigate("CalculatorScreen"); // Navigate to the Calculator screen
+        break;
+      case "Deposit Rates":
+        navigation.navigate("DepositRatesScreen"); // Navigate to the Deposit Rates screen
+        break;
+      case "Online Payment":
+        navigation.navigate("OnlinePaymentScreen"); // Navigate to the Online Payment screen
+        break;
+      default:
+        console.log(`Pressed ${featureLabel}`);
+    }
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#dbe4f1" }}>
       <Image
-  source={require("../assets/dashboard.jpg")}
-  style={{ flex: 1, resizeMode: "contain", alignSelf: "flex-start" }}
-/>
+        source={require("../assets/dashboard.jpg")}
+        style={{ flex: 1, resizeMode: "contain", alignSelf: "flex-start" }}
+      />
 
       <View
         style={{
@@ -31,7 +51,7 @@ export default function ConfirmEmailScreen() {
           height: "5.4%",
           padding: 10,
           borderRadius: 5,
-          alignContent: "center",
+          alignItems: "center",
           alignSelf: "center",
         }}
       >
@@ -39,41 +59,77 @@ export default function ConfirmEmailScreen() {
           REGISTER NOW
         </Text>
       </View>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          backgroundColor: "white",
-          paddingHorizontal: 1,
-        }}
-      >
-        <View style={{ flexDirection: "row", justifyContent: "space-between", flexWrap: "wrap" }}>
-          {featureIcons.map((icon, index) => (
-            <FeatureCard key={index} icon={icon} />
-          ))}
+
+      <View style={{ flex: 1, paddingHorizontal: 10 }}>
+        <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 20 }}>
+          <FeatureCard
+            icon="ios-cash"
+            label="BHIM UPI"
+            onPress={() => handleFeaturePress("BHIM UPI")}
+          />
+          <FeatureCard
+            icon="ios-people"
+            label="Pay to Contacts"
+            onPress={() => handleFeaturePress("Pay to Contacts")}
+          />
+          <FeatureCard
+            icon="ios-umbrella"
+            label="Insurance"
+            onPress={() => handleFeaturePress("Insurance")}
+          />
+          <FeatureCard
+            icon="ios-globe"
+            label="Net Banking"
+            onPress={() => handleFeaturePress("Net Banking")}
+          />
+        </View>
+
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <FeatureCard
+            icon="ios-calendar"
+            label="Bank Holidays"
+            onPress={() => handleFeaturePress("Bank Holidays")}
+          />
+          <FeatureCard
+            icon="ios-calculator"
+            label="Calculator"
+            onPress={() => handleFeaturePress("Calculator")}
+          />
+          <FeatureCard
+            icon="ios-cash"
+            label="Deposit Rates"
+            onPress={() => handleFeaturePress("Deposit Rates")}
+          />
+          <FeatureCard
+            icon="ios-card"
+            label="Online Payment"
+            onPress={() => handleFeaturePress("Online Payment")}
+          />
         </View>
       </View>
     </SafeAreaView>
   );
-}
+};
 
-function FeatureCard({ icon }) {
+function FeatureCard({ icon, label, onPress }) {
   return (
-    <View
-      style={{
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "white",
-        borderRadius: 10,
-        width: "25%",
-        height: "27%",
-        marginBottom: 28.80,
-      }}
-    >
-      <Ionicons name={icon.name} size={26} color="black" />
-      <Text style={{ fontSize: 14, fontWeight: "bold", marginTop: 10 }}>
-        {icon.label}
-      </Text>
-    </View>
+    <TouchableOpacity onPress={onPress}>
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          width: "59%",
+          height: 77,
+          marginBottom: 20,
+        }}
+      >
+        <Ionicons name={icon} size={36} color="black" />
+        <Text style={{ fontSize: 14, fontWeight: "bold", marginTop: 10 }}>
+          {label}
+        </Text>
+      </View>
+    </TouchableOpacity>
   );
 }
+
+export default DashboardScreen;
