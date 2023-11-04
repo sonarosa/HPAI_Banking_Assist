@@ -21,6 +21,7 @@ import MobileScreen from "../screens/MobileScreen";
 import Dth from "../screens/Dth";
 import ElectricityScreen from "../screens/ElectricityScreen";
 import Fastag from "../screens/Fastag";
+import FastTagform from "../screens/Fastagform";
 
 
 
@@ -43,6 +44,7 @@ export type LoginStackParams = {
   Dth: undefined;
   ElectricityScreen: undefined;
   Fastag: undefined;
+  FastTagform :undefined;
 };
 
 export type LoginNavigationProps =
@@ -76,6 +78,7 @@ export function LoginStack() {
       <Stack.Screen name="Dth" component={Dth} />
       <Stack.Screen name="ElectricityScreen" component={ElectricityScreen} />
       <Stack.Screen name="Fastag" component={Fastag} />
+      <Stack.Screen name="FastTagform" component={FastTagform} />
 
 
 
