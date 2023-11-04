@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 
 const DTHOperators = [
-  { name: 'Dish TV', icon: require('./assets/dish_tv.png') },
-  { name: 'Tata Sky', icon: require('./assets/tata_sky.png') },
-  { name: 'Airtel Digital TV', icon: require('./assets/airtel_tv.png') },
+  { name: 'Dish TV',},
+  { name: 'Tata Sky', },
+  { name: 'Airtel Digital TV', },
   // Add more DTH operators here
 ];
 
