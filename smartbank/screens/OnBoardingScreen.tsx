@@ -31,7 +31,7 @@ export default function OnBoardingScreen() {
           {
             const eventData = {
               event: 'button pressed',
-              eventName: 'signin button',
+              eventName: 'signin_button',
               timestamp: Date.now(),
             };
             trackEvent(eventData);
@@ -46,27 +46,13 @@ export default function OnBoardingScreen() {
         </Pressable>
         <Pressable
           className="mt-4 h-12 w-full items-center justify-center rounded-xl bg-red-200"
-          onPress={() => {
-            const eventData = {
-              event: 'button pressed',
-              eventName: 'login button',
-              timestamp: Date.now(),
-            };
-            trackEvent(eventData);
-            navigation.navigate("Login")}}
+          onPress={() => navigation.navigate("Login")}
         >
           <Text className="text-[16px] font-semibold text-primary-500">
             Log in
           </Text>
         </Pressable>
-        <Pressable
-          className="mt-4 h-12 w-full items-center justify-center rounded-xl bg-red-200"
-          onPress={() => navigation.navigate("ConfirmEmail")}
-        >
-          <Text className="text-[16px] font-semibold text-primary-500">
-            Dashboard
-          </Text>
-        </Pressable>
+       
       </View>
     </SafeAreaView>
   );

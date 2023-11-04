@@ -88,9 +88,7 @@ const DashboardScreen = () => {
                 navigation.navigate("RemitMoneyScreen"); // Navigate to the Online Payment screen
                 break;
 
-                case "Online Payment":
-                navigation.navigate("OnlinePayment Screen"); // Navigate to the Online Payment screen
-                break;
+               
       
         console.log(`Pressed ${featureLabel}`);
     }
@@ -315,7 +313,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#FF0000', // Red text color
+    color: '#a72928', // Red text color
   },
   sectionDescription: {
     flexDirection: 'row',
@@ -324,7 +322,7 @@ const styles = StyleSheet.create({
   sectionText: {
     fontWeight: 'bold',
     marginRight: 10,
-    color: '#FF0000', // Red text color
+    color: '#a72928', // Red text color
   },
 });
 
