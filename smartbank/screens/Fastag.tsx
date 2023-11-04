@@ -2,11 +2,9 @@ import React from 'react';
 import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
 
 const FASTagIssuingBanks = [
-  { name: 'South Indian Bank', logo: require('./bankLogos/sib.png') },
+  { name: 'South Indian Bank', logo: require('../assets/sib.png') },
   // Add more South Indian banks here
-  { name: 'HDFC Bank', logo: require('./bankLogos/hdfc_bank.png') },
-  { name: 'ICICI Bank', logo: require('./bankLogos/icici_bank.png') },
-  { name: 'Axis Bank', logo: require('./bankLogos/axis_bank.png') },
+  
   // Add more banks here
 ];
 
