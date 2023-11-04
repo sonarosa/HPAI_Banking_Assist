@@ -44,7 +44,7 @@ const DashboardScreen = () => {
           navigation.navigate("MobileScreen"); // Navigate to the Online Payment screen
           break;
       case "DTH":
-            navigation.navigate("DTH"); // Navigate to the Online Payment screen
+            navigation.navigate("Dth"); // Navigate to the Online Payment screen
             break;
       case "Electricity":
             navigation.navigate("ElectricityScreen"); // Navigate to the Online Payment screen

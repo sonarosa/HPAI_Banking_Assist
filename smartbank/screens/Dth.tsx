@@ -64,6 +64,7 @@ const DTHRechargeScreen = () => {
           padding: 10,
           borderRadius: 10,
           marginTop: 20,
+          width: 50,
         }}
         onPress={() => handlePayment()}
       >
