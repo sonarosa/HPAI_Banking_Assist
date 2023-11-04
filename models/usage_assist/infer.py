@@ -126,7 +126,7 @@ def fill_messages(set_of_preds):
         {"role": "system", "content": "Give 2 sentence questions to the user to suggest what he is searching for ?"},
         {"role": "system", "content": "Be formal, no salutations just questions"},
         {"role": "user", "content": "I am user of the state bank of India Application, I need help finding a feature"},
-        {"role": "system", "content": "The User is searching either for {0} or {1} ".format(set_of_preds[0],set_of_preds[1])},
+        {"role": "system", "content": "The User is searching for {0}".format(set_of_preds[0])},
         {"role": "system", "content": "Give the user a  suggestion"},
         {"role": "user", "content": "What could I be possibly searching ? "},
     ]
@@ -165,6 +165,7 @@ input_data : dictionary of the format
 }
 '''
 def run_usage_inference(input_data: dict, model_path: str = None):
+    # print('input_data',input_data)
     # Defining model params
 
     # Define the model's hyperparameters
@@ -197,11 +198,12 @@ def run_usage_inference(input_data: dict, model_path: str = None):
 
     sorted_keys  = [keys[i] for i in indexes_in_order[0]]
 
-
-    chats = get_message(sorted_keys)
+    # print(sorted_keys)
+    chats = get_message([sorted_keys[0]])
 
     return chats
 
+import json
 if __name__ == "__main__":
 
     dataset = {
@@ -225,7 +227,13 @@ if __name__ == "__main__":
         ]
     }
 
-    run_usage_inference(
-        dataset,
+    with open('./test.json', 'r') as json_file:
+        data = json.load(json_file)
+
+    data = {"data" : eval(data['data']) }
+    out = run_usage_inference(
+        data,
         "./model.pt"
     )
+
+    print(out)

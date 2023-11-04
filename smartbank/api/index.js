@@ -23,17 +23,17 @@ app.listen(port, () => {
   console.log("Server is running on port 8000");
 });
 
-mongoose
-  .connect("mongodb+srv://abhinajith40:abhinpt@cluster0.pihnslj.mongodb.net/", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("Connected to MongoDB");
-  })
-  .catch((err) => {
-    console.log("Error connecting to MongoDb", err);
-  });
+// mongoose
+//   .connect("mongodb+srv://abhinajith40:abhinpt@cluster0.pihnslj.mongodb.net/", {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   })
+//   .then(() => {
+//     console.log("Connected to MongoDB");
+//   })
+//   .catch((err) => {
+//     console.log("Error connecting to MongoDb", err);
+//   });
 
 const User = require("./models/user");
 const Order = require("./models/order");
@@ -128,65 +128,70 @@ app.post('/fetchData', (req, res) => {
 
   // Save the data to a local file (append)
   const filePath = 'C:/Users/91892/Desktop/HPAI_Banking_Assist/smartbank/eventTracking/data.json'; // Specify the path and filename
-  const jsonData = JSON.stringify(data, null, 2) + '\n'; // Convert data to JSON format with indentation and add a newline character
-
-  // Create a write stream to append the JSON data to the file
-  const writeStream = fs.createWriteStream(filePath, { flags: 'a' });
-
-  // Write the JSON data to the file
-  writeStream.write(jsonData + ',', (err) => {
+  
+  
+  fs.readFile(filePath, 'utf8', (err, fileData) => {
     if (err) {
-      console.error('Error while appending data to file:', err);
-      res.status(500).send('Error appending data to file');
-    } else {
-      console.log('Data appended to file:', filePath);
-      res.send('Data received, logged in the terminal, and appended to the file.');
+      console.error('Error reading the file:', err);
+      res.status(500).send('Error reading the file');
+      return;
     }
-  });
-  writeStream.end(); // Close the write stream when done
+
+    let jsonData = JSON.parse(fileData);
+    jsonData.push(data); // Append the new data to the existing array
+
+    // Write the updated JSON data back to the file
+    fs.writeFile(filePath, JSON.stringify(jsonData, null, 2), (err) => {
+      if (err) {
+        console.error('Error while writing data to file:', err);
+        res.status(500).send('Error writing data to file');
+      } else {
+        console.log('Data appended to file:', filePath);
+        res.send('Data received, logged in the terminal, and appended to the file.');
+      }
+    });
+  }); // Close the write stream when done
 });
 
 app.post('/assistant', (req, res) => {
-  const data = req.body;
-  
-  data.timestamp = new Date(data.timestamp);
-
-  const options = {
-    timeZone: 'Asia/Kolkata',
-    hour12: false, // Use 24-hour time format
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-  };
-
-  // Format the date in IST
-  data.timestamp = data.timestamp.toLocaleString('en-IN', options);
-  
-  // Define the Python script and the argument
-  const pythonScript = 'C:/Users/91892/Desktop/HPAI_Banking_Assist/models/python-temp/model-temp.py';
-  const argument = JSON.stringify(data);
-
-  // Execute the Python script
-  const pythonProcess = spawn('python', [pythonScript, argument]);
-
-  let pythonScriptOutput = '';
-
-  // Capture the Python script's output
-  pythonProcess.stdout.on('data', (data) => {
-    pythonScriptOutput += data.toString();
-  });
-
-  // Handle the Python script's exit
-  pythonProcess.on('exit', (code) => {
-    if (code === 0) {
-      res.send(pythonScriptOutput);
-    } else {
-      res.status(500).send('Error executing Python script');
+  fs.readFile('C:/Users/91892/Desktop/HPAI_Banking_Assist/smartbank/eventTracking/data.json', 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error reading JSON file:', err);
+      return res.status(500).send('Error reading JSON file');
     }
+    
+
+    const transformedData = {
+      "data": data
+    };
+
+    // Define the Python script and the argument
+    const pythonScript = 'C:/Users/91892/Desktop/HPAI_Banking_Assist/models/usage_assist/model-temp.py';
+    const argument = JSON.stringify(transformedData);
+    
+    // Execute the Python script
+    const pythonProcess = spawn('python', [pythonScript, argument]);
+    
+    let pythonScriptOutput = '';
+
+    // Capture the Python script's output
+    pythonProcess.stdout.on('data', (data) => {
+      pythonScriptOutput += data.toString();
+    });
+
+    // Handle the Python script's exit
+    pythonProcess.on('exit', (code) => {
+      if (code === 0) {
+        res.send(pythonScriptOutput);
+      } else {
+        res.status(500).send('Error executing Python script');
+      }
+    });
+    // const jsonData = JSON.parse(data); // Parse the JSON data
+    //res.json(data); // Send the JSON data as a response
   });
+
+  
 });
 
 
