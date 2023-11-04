@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
+import { View, Text, ScrollView, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
@@ -44,7 +44,7 @@ const DashboardScreen = () => {
           navigation.navigate("MobileScreen"); // Navigate to the Online Payment screen
           break;
       case "DTH":
-            navigation.navigate("Dth"); // Navigate to the Online Payment screen
+            navigation.navigate("DTH"); // Navigate to the Online Payment screen
             break;
       case "Electricity":
             navigation.navigate("ElectricityScreen"); // Navigate to the Online Payment screen
@@ -97,17 +97,16 @@ const DashboardScreen = () => {
   };
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: "#dbe4f1" }}>
+    <ScrollView style={styles.container}>
       <Image
-        source={require("../assets/dashboard.jpg")}
-        style={{ flex: 1, resizeMode: "contain", alignSelf: "flex-start" }}
+        source={require('../assets/dashboard.jpg')}
+        style={styles.headerImage}
       />
-
-      <View style={{ flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 10 }}>
+     <View style={styles.featureContainer}>
         <FeatureCard
           icon="ios-cash"
           label="BHIM UPI"
-          onPress={() => handleFeaturePress("BHIM UPI")}
+          onPress={() => handleFeaturePress('BHIM UPI')}
         />
         <FeatureCard
           icon="ios-people"
@@ -126,7 +125,7 @@ const DashboardScreen = () => {
         />
       </View>
 
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+      <View style={styles.featureContainer}>
         <FeatureCard
           icon="ios-calendar"
           label="Bank Holidays"
@@ -148,21 +147,23 @@ const DashboardScreen = () => {
           onPress={() => handleFeaturePress("Online Payment")}
         />
       </View>
-      <View style={{ marginVertical: 20, paddingHorizontal: 10 }}>
-        <Text style={{ fontSize: 18, fontWeight: "bold" }}>Recharge & Pay Bills</Text>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Text style={{ fontWeight: "bold" }}>Earn more rewards points by paying bills</Text>
-          <TouchableOpacity onPress={() => handleMoreInfoPress()}>
+      <View style={styles.sectionContainer}>
+        <Text style={styles.sectionTitle}>Recharge & Pay Bills</Text>
+        <View style={styles.sectionDescription}>
+          <Text style={styles.sectionText}>
+            Earn more rewards points by paying bills
+          </Text>
+          <TouchableOpacity onPress={handleMoreInfoPress}>
             <Ionicons name="ios-arrow-forward" size={24} color="black" />
           </TouchableOpacity>
         </View>
       </View>
 
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+      <View style={styles.featureContainer}>
         <BillFeatureCard
           icon="ios-phone-portrait"
           label="Mobile"
-          onPress={() => handleFeaturePress("Mobile")}
+          onPress={() => handleFeaturePress('Mobile')}
         />
         <BillFeatureCard
           icon="ios-desktop"
@@ -181,17 +182,19 @@ const DashboardScreen = () => {
         />
       </View>
 
-      <View style={{ marginVertical: 20, paddingHorizontal: 10 }}>
-        <Text style={{ fontSize: 18, fontWeight: "bold" }}>Services & Request</Text>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Text style={{ fontWeight: "bold" }}>Get all services at your fingertip</Text>
-          <TouchableOpacity onPress={() => handleMoreInfoPress()}>
+      <View style={styles.sectionContainer}>
+        <Text style={styles.sectionTitle}>Services & Request</Text>
+        <View style={styles.sectionDescription}>
+          <Text style={styles.sectionText}>
+            Get all services at your fingertip
+          </Text>
+          <TouchableOpacity onPress={handleMoreInfoPress}>
             <Ionicons name="ios-arrow-forward" size={24} color="black" />
           </TouchableOpacity>
         </View>
       </View>
 
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+      <View style={styles.featureContainer}>
         <BillFeatureCard
           icon="md-card"
           label="Debit Card"
@@ -214,17 +217,19 @@ const DashboardScreen = () => {
         />
       </View>
 
-      <View style={{ marginVertical: 20, paddingHorizontal: 10 }}>
-        <Text style={{ fontSize: 18, fontWeight: "bold" }}>Financial Tools & Enquiries</Text>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Text style={{ fontWeight: "bold" }}>Get your enquiries resolved instantly</Text>
-          <TouchableOpacity onPress={() => handleMoreInfoPress()}>
+      <View style={styles.sectionContainer}>
+        <Text style={styles.sectionTitle}>Financial Tools & Enquiries</Text>
+        <View style={styles.sectionDescription}>
+          <Text style={styles.sectionText}>
+            Get your enquiries resolved instantly
+          </Text>
+          <TouchableOpacity onPress={handleMoreInfoPress}>
             <Ionicons name="ios-arrow-forward" size={24} color="black" />
           </TouchableOpacity>
         </View>
       </View>
 
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+      <View style={styles.featureContainer}>
         <BillFeatureCard
           icon="ios-calculator"
           label="Calculator"
@@ -247,17 +252,18 @@ const DashboardScreen = () => {
         />
       </View>
 
-      <View style={{ marginVertical: 20, paddingHorizontal: 10 }}>
-        <Text style={{ fontSize: 18, fontWeight: "bold" }}>Payments</Text>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Text style={{ fontWeight: "bold" }}>Make payments at your comfort</Text>
-          <TouchableOpacity onPress={() => handleMoreInfoPress()}>
+      <View style={styles.sectionContainer}>
+        <Text style={styles.sectionTitle}>Payments</Text>
+        <View style={styles.sectionDescription}>
+          <Text style={styles.sectionText}>
+            Make Payments at your comfort
+          </Text>
+          <TouchableOpacity onPress={handleMoreInfoPress}>
             <Ionicons name="ios-arrow-forward" size={24} color="black" />
           </TouchableOpacity>
         </View>
       </View>
-
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+      <View style={styles.featureContainer}>
   <BillFeatureCard
     icon="ios-school"
     label="College/School fee"
@@ -285,6 +291,42 @@ const DashboardScreen = () => {
   
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FFFFFF', // White background
+  },
+  headerImage: {
+    flex: 1,
+    resizeMode: 'contain',
+    alignSelf: 'flex-start',
+  },
+  featureContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 10,
+    marginTop: 20,
+  },
+  sectionContainer: {
+    marginVertical: 20,
+    paddingHorizontal: 10,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#FF0000', // Red text color
+  },
+  sectionDescription: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  sectionText: {
+    fontWeight: 'bold',
+    marginRight: 10,
+    color: '#FF0000', // Red text color
+  },
+});
 
 function FeatureCard({ icon, label, onPress }) {
   return (
