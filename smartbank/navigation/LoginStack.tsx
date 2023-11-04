@@ -60,6 +60,7 @@ export function LoginStack() {
       <Stack.Screen name="CalculatorScreen" component={CalculatorScreen} />
 
       <Stack.Screen name="DepositRatesScreen" component={DepositRatesScreen} />
+      <Stack.Screen name="OnlinePaymentScreen" component={OnlinePaymentScreen} />
 
 
 

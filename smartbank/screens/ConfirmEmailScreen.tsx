@@ -61,7 +61,6 @@ const DashboardScreen = () => {
       </View>
 
       <View style={{ flex: 1, paddingHorizontal: 10 }}>
-        <View style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 20 }}>
           <FeatureCard
             icon="ios-cash"
             label="BHIM UPI"
@@ -106,7 +105,7 @@ const DashboardScreen = () => {
             onPress={() => handleFeaturePress("Online Payment")}
           />
         </View>
-      </View>
+    
     </SafeAreaView>
   );
 };

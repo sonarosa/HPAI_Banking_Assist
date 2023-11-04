@@ -9,22 +9,14 @@ const { notFound, errorHandler } = require("./middleware/errorMiddleware.js");
 const app = express();
 app.use(express.json()); // accept JSON file
 
-
-
-
-dotenv.config(); // helps to read the env file
-connectDB(); // IN config/db.js
-
-
-
+dotenv.config(); // Helps to read the env file
+connectDB(); // In config/db.js
 
 app.get("/", function (req, res) {
   res.send("API is running");
 });
 
 app.use("/user", userRoutes);
-// app.use("/community", communityRoutes);
-// app.use("/message", messageRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
