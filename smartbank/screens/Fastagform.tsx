@@ -1,8 +1,9 @@
-// FASTagRechargeForm.tsx
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 
-const FASTagRechargeForm = ({ selectedBank }) => {
+const FASTagRechargeForm = ({ route }) => {
+  const { selectedBank } = route.params; // Access the selected bank name
+
   const [vehicleNumber, setVehicleNumber] = useState('');
 
   const handleRecharge = () => {
