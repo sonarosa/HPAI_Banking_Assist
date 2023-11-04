@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, SafeAreaView, Image, TouchableOpacity } from "react-native";
+import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
@@ -14,6 +14,7 @@ const DashboardScreen = () => {
 
   const handleFeaturePress = (featureLabel) => {
     switch (featureLabel) {
+      
       case "BHIM UPI":
         navigation.navigate("BhimUPI"); // Navigate to the BHIM UPI screen
         break;
@@ -35,16 +36,44 @@ const DashboardScreen = () => {
       case "Deposit Rates":
         navigation.navigate("DepositRatesScreen"); // Navigate to the Deposit Rates screen
         break;
+      
       case "Online Payment":
         navigation.navigate("OnlinePaymentScreen"); // Navigate to the Online Payment screen
         break;
+      case "Mobile":
+          navigation.navigate("MobileScreen"); // Navigate to the Online Payment screen
+          break;
+      case "DTH":
+            navigation.navigate("DTH"); // Navigate to the Online Payment screen
+            break;
+      case "Electricity":
+            navigation.navigate("ElectricityScreen"); // Navigate to the Online Payment screen
+            break;
+      case "SIB Fastag":
+              navigation.navigate("Fastag"); // Navigate to the Online Payment screen
+            break;
       default:
+      case "Debit Card":
+          navigation.navigate("DebitCardScreen"); // Navigate to the Online Payment screen
+          break;
+
+      case "Cheque Book Services":
+            navigation.navigate("ChequeScreen"); // Navigate to the Online Payment screen
+            break;
+      case "Complaints":
+              navigation.navigate("ComplaintsScreen"); // Navigate to the Online Payment screen
+              break;
+
+      case "Update KYC":
+                navigation.navigate("UpdateKYCScreen"); // Navigate to the Online Payment screen
+                break;
+      
         console.log(`Pressed ${featureLabel}`);
     }
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#dbe4f1" }}>
+    <ScrollView style={{ flex: 1, backgroundColor: "#dbe4f1" }}>
       <Image
         source={require("../assets/dashboard.jpg")}
         style={{ flex: 1, resizeMode: "contain", alignSelf: "flex-start" }}
@@ -127,7 +156,109 @@ const DashboardScreen = () => {
           onPress={() => handleFeaturePress("SIB Fastag")}
         />
       </View>
-    </SafeAreaView>
+
+      <View style={{ marginVertical: 20, paddingHorizontal: 10 }}>
+        <Text style={{ fontSize: 18, fontWeight: "bold" }}>Services & Request</Text>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Text style={{ fontWeight: "bold" }}>Get all services at your fingertip</Text>
+          <TouchableOpacity onPress={() => handleMoreInfoPress()}>
+            <Ionicons name="ios-arrow-forward" size={24} color="black" />
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <BillFeatureCard
+          icon="md-card"
+          label="Debit Card"
+          onPress={() => handleFeaturePress("Debit Card")}
+        />
+        <BillFeatureCard
+          icon="md-albums"
+          label="Cheque Book Services"
+          onPress={() => handleFeaturePress("Cheque Book Services")}
+        />
+        <BillFeatureCard
+          icon="md-warning"
+          label="Complaints"
+          onPress={() => handleFeaturePress("Complaints")}
+        />
+        <BillFeatureCard
+          icon="md-person"
+          label="Update KYC"
+          onPress={() => handleFeaturePress("Update KYC")}
+        />
+      </View>
+
+      <View style={{ marginVertical: 20, paddingHorizontal: 10 }}>
+        <Text style={{ fontSize: 18, fontWeight: "bold" }}>Financial Tools & Enquiries</Text>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Text style={{ fontWeight: "bold" }}>Get your enquiries resolved instantly</Text>
+          <TouchableOpacity onPress={() => handleMoreInfoPress()}>
+            <Ionicons name="ios-arrow-forward" size={24} color="black" />
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <BillFeatureCard
+          icon="ios-calculator"
+          label="Calculator"
+          onPress={() => handleFeaturePress("Calculator")}
+        />
+        <BillFeatureCard
+          icon="ios-calendar"
+          label="Bank Holidays"
+          onPress={() => handleFeaturePress("Bank Holidays")}
+        />
+        <BillFeatureCard
+          icon="ios-help-circle"
+          label="FAQs"
+          onPress={() => handleFeaturePress("FAQs")}
+        />
+        <BillFeatureCard
+          icon="ios-lock-closed"
+          label="Locker Availability"
+          onPress={() => handleFeaturePress("Locker Availability")}
+        />
+      </View>
+
+      <View style={{ marginVertical: 20, paddingHorizontal: 10 }}>
+        <Text style={{ fontSize: 18, fontWeight: "bold" }}>Payments</Text>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Text style={{ fontWeight: "bold" }}>Make payments at your comfort</Text>
+          <TouchableOpacity onPress={() => handleMoreInfoPress()}>
+            <Ionicons name="ios-arrow-forward" size={24} color="black" />
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+  <BillFeatureCard
+    icon="ios-school"
+    label="College/School fee"
+    onPress={() => handleFeaturePress("College/School fee")}
+  />
+  <BillFeatureCard
+    icon="ios-gift"
+    label="Offerings"
+    onPress={() => handleFeaturePress("Offerings")}
+  />
+  <BillFeatureCard
+    icon="ios-globe"
+    label="Remit Money Abroad"
+    onPress={() => handleFeaturePress("Remit Money Abroad")}
+  />
+  <BillFeatureCard
+    icon="ios-card"
+    label="Online Payments"
+    onPress={() => handleFeaturePress("Online Payments")}
+  />
+</View>
+</ScrollView>
+
+
+  
   );
 };
 
@@ -138,9 +269,9 @@ function FeatureCard({ icon, label, onPress }) {
         style={{
           alignItems: "center",
           justifyContent: "center",
-          width: "53%",
+          width: "100%",
           height: 77,
-          marginBottom: 10, // Adjust this value to make the rows closer
+          marginBottom: 10, 
         }}
       >
         <Ionicons name={icon} size={36} color="black" />
