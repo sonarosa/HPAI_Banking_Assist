@@ -58,33 +58,12 @@ class AppDataset(Dataset):
 
 
 
-data_json = json.load(open("sample.json"))
+data_json = json.load(open("dataset.json"))
 data = data_json["data"]
 
 
 
-vocab = {
-    "Home": 0,
-    "Login Now": 1,
-    "UPI": 2,
-    "Pay To Contacts": 3,
-    "Insurance": 4,
-    "Net Banking": 5,
-    "Bank Holidays": 6,
-    "Pay To Account": 7,
-    "Pay To IFSC": 8,
-    "Pay To Aadhar": 9,
-    "Pay To Mobile": 10,
-    "Statement": 11,
-    "Pay To VPA": 12,
-    "Pay To Mobile": 13,
-    "Bank statement": 190,
-    "Pay To Account": 191,
-    "Pay To IFSC": 123,
-    "login details": 124,
-    "Reset password": 145,
-}
-
+vocab = {'gold_loan_renew': 0, 'app_login': 1, 'priority_banking_request': 2, 'transaction_imps': 3, 'fd_open': 4, 'transaction_own_acc': 5, 'rd_opening': 6, 'billpay_recharge': 7, 'kyc_update': 8, 'FOR_add_beneficiary': 9, 'FOR_send_money': 10, 'fsld_open': 11, 'mail_id_update': 12, 'fast_tag': 13, 'transaction_neft': 14, 'apply_apy': 15}
 
 keys = list(vocab.keys())
 
@@ -96,7 +75,7 @@ output_dim = vocab_size  # Output dimension
 num_layers = 2  # Number of LSTM layers
 dropout = 0.5  # Dropout probability
 batch_size = 1  # Batch size
-num_epochs = 10  # Number of epochs
+num_epochs = 100 # Number of epochs
 
 # Create an instance of the Encoder-Decoder model
 model = EncoderDecoder(vocab_size, embedding_dim, hidden_dim, output_dim, num_layers, dropout)
@@ -127,7 +106,7 @@ for epoch in range(num_epochs):
         goal = goal.view(-1)
 
         loss = criterion(output, goal)
-        print(loss, output, goal)
+        print(loss)
         loss.backward()
         optimizer.step()
 
