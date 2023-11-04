@@ -6,6 +6,12 @@ import { useNavigation } from "@react-navigation/native";
 const DashboardScreen = () => {
   const navigation = useNavigation();
 
+  const handleMoreInfoPress = () => {
+    // Add your navigation logic here or any other action you want to perform
+    navigation.navigate("MoreInfoScreen"); // Navigate to a screen with more information
+  };
+  
+
   const handleFeaturePress = (featureLabel) => {
     switch (featureLabel) {
       case "BHIM UPI":
@@ -44,68 +50,83 @@ const DashboardScreen = () => {
         style={{ flex: 1, resizeMode: "contain", alignSelf: "flex-start" }}
       />
 
-      <View
-        style={{
-          backgroundColor: "#c7222a",
-          width: "92.8888%",
-          height: "5.4%",
-          padding: 10,
-          borderRadius: 5,
-          alignItems: "center",
-          alignSelf: "center",
-        }}
-      >
-        <Text style={{ fontSize: 18, fontWeight: "bold", color: "white", textAlign: "center" }}>
-          REGISTER NOW
-        </Text>
+      <View style={{ flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 10 }}>
+        <FeatureCard
+          icon="ios-cash"
+          label="BHIM UPI"
+          onPress={() => handleFeaturePress("BHIM UPI")}
+        />
+        <FeatureCard
+          icon="ios-people"
+          label="Pay to Contacts"
+          onPress={() => handleFeaturePress("Pay to Contacts")}
+        />
+        <FeatureCard
+          icon="ios-umbrella"
+          label="Insurance"
+          onPress={() => handleFeaturePress("Insurance")}
+        />
+        <FeatureCard
+          icon="ios-globe"
+          label="Net Banking"
+          onPress={() => handleFeaturePress("Net Banking")}
+        />
       </View>
 
-      <View style={{ flex: 1, paddingHorizontal: 10 }}>
-          <FeatureCard
-            icon="ios-cash"
-            label="BHIM UPI"
-            onPress={() => handleFeaturePress("BHIM UPI")}
-          />
-          <FeatureCard
-            icon="ios-people"
-            label="Pay to Contacts"
-            onPress={() => handleFeaturePress("Pay to Contacts")}
-          />
-          <FeatureCard
-            icon="ios-umbrella"
-            label="Insurance"
-            onPress={() => handleFeaturePress("Insurance")}
-          />
-          <FeatureCard
-            icon="ios-globe"
-            label="Net Banking"
-            onPress={() => handleFeaturePress("Net Banking")}
-          />
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <FeatureCard
+          icon="ios-calendar"
+          label="Bank Holidays"
+          onPress={() => handleFeaturePress("Bank Holidays")}
+        />
+        <FeatureCard
+          icon="ios-calculator"
+          label="Calculator"
+          onPress={() => handleFeaturePress("Calculator")}
+        />
+        <FeatureCard
+          icon="ios-cash"
+          label="Deposit Rates"
+          onPress={() => handleFeaturePress("Deposit Rates")}
+        />
+        <FeatureCard
+          icon="ios-card"
+          label="Online Payment"
+          onPress={() => handleFeaturePress("Online Payment")}
+        />
+      </View>
+      <View style={{ marginVertical: 20, paddingHorizontal: 10 }}>
+        <Text style={{ fontSize: 18, fontWeight: "bold" }}>Recharge & Pay Bills</Text>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Text style={{ fontWeight: "bold" }}>Earn more rewards points by paying bills</Text>
+          <TouchableOpacity onPress={() => handleMoreInfoPress()}>
+            <Ionicons name="ios-arrow-forward" size={24} color="black" />
+          </TouchableOpacity>
         </View>
+      </View>
 
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <FeatureCard
-            icon="ios-calendar"
-            label="Bank Holidays"
-            onPress={() => handleFeaturePress("Bank Holidays")}
-          />
-          <FeatureCard
-            icon="ios-calculator"
-            label="Calculator"
-            onPress={() => handleFeaturePress("Calculator")}
-          />
-          <FeatureCard
-            icon="ios-cash"
-            label="Deposit Rates"
-            onPress={() => handleFeaturePress("Deposit Rates")}
-          />
-          <FeatureCard
-            icon="ios-card"
-            label="Online Payment"
-            onPress={() => handleFeaturePress("Online Payment")}
-          />
-        </View>
-    
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <BillFeatureCard
+          icon="ios-phone-portrait"
+          label="Mobile"
+          onPress={() => handleFeaturePress("Mobile")}
+        />
+        <BillFeatureCard
+          icon="ios-desktop"
+          label="DTH"
+          onPress={() => handleFeaturePress("DTH")}
+        />
+        <BillFeatureCard
+          icon="ios-flash"
+          label="Electricity"
+          onPress={() => handleFeaturePress("Electricity")}
+        />
+        <BillFeatureCard
+          icon="ios-car"
+          label="SIB Fastag"
+          onPress={() => handleFeaturePress("SIB Fastag")}
+        />
+      </View>
     </SafeAreaView>
   );
 };
@@ -117,9 +138,9 @@ function FeatureCard({ icon, label, onPress }) {
         style={{
           alignItems: "center",
           justifyContent: "center",
-          width: "59%",
+          width: "53%",
           height: 77,
-          marginBottom: 20,
+          marginBottom: 10, // Adjust this value to make the rows closer
         }}
       >
         <Ionicons name={icon} size={36} color="black" />
@@ -131,4 +152,24 @@ function FeatureCard({ icon, label, onPress }) {
   );
 }
 
+function BillFeatureCard({ icon, label, onPress }) {
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100%",
+          height: 77,
+          marginBottom: 10,
+        }}
+      >
+        <Ionicons name={icon} size={36} color="black" />
+        <Text style={{ fontSize: 14, fontWeight: "bold", marginTop: 10 }}>
+          {label}
+        </Text>
+      </View>
+    </TouchableOpacity>
+  );
+}
 export default DashboardScreen;

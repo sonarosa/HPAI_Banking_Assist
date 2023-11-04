@@ -16,6 +16,7 @@ import BankHolidaysScreen from "../screens/BankHolidaysScreen";
 import CalculatorScreen from "../screens/CalculatorScreen";
 import DepositRatesScreen from "../screens/DepositRatesScreen";
 import OnlinePaymentScreen from "../screens/OnlinePaymentScreen";
+import MoreInfoScreen from "../screens/MoreInfoScreen";
 
 
 
@@ -33,6 +34,7 @@ export type LoginStackParams = {
   CalculatorScreen: undefined;
   DepositRatesScreen: undefined;
   OnlinePaymentScreen: undefined;
+  MoreInfoScreen: undefined;
 };
 
 export type LoginNavigationProps =
@@ -61,6 +63,8 @@ export function LoginStack() {
 
       <Stack.Screen name="DepositRatesScreen" component={DepositRatesScreen} />
       <Stack.Screen name="OnlinePaymentScreen" component={OnlinePaymentScreen} />
+      <Stack.Screen name="MoreInfoScreen" component={MoreInfoScreen} />
+
 
 
 
