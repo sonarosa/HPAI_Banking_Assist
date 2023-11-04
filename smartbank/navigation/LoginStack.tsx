@@ -9,6 +9,7 @@ import OnBoardingScreen from "../screens/OnBoardingScreen";
 import SignUpScreen from "../screens/SignUpScreen";
 import WelcomeScreen from "../screens/WelcomeScreen";
 import View_ifsc from "../screens/View_ifsc";
+import QRCodeScanner from "../screens/QRCodeScanner";
 
 export type LoginStackParams = {
   OnBoarding: undefined;
@@ -35,6 +36,7 @@ export function LoginStack() {
       <Stack.Screen name="Dashboard" component={WelcomeScreen} />
       <Stack.Screen name="ConfirmEmail" component={ConfirmEmailScreen} />
       <Stack.Screen name="View_ifsc" component={View_ifsc} />
+      <Stack.Screen name="QRCodeScanner" component={QRCodeScanner} />
 
     </Stack.Navigator>
   );

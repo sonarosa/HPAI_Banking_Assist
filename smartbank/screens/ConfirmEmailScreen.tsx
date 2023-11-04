@@ -36,7 +36,7 @@ export default function ConfirmEmailScreen() {
           alignSelf: "center",
         }}
       >
-        <Pressable onPress={() => navigation.navigate("View_ifsc")}>
+        <Pressable onPress={() => navigation.navigate("QRCodeScanner")}>
           <Text style={{ fontSize: 18, fontWeight: "bold", color: "white", textAlign: "center" }}>
           View_ifsc
           </Text>
