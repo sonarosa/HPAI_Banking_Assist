@@ -22,6 +22,7 @@ import { z } from "zod";
 import { LoginNavigationProps } from "../navigation/LoginStack";
 import { supabase } from "../supabase";
 import { classNames } from "../utils/classNames";
+import { trackEvent } from "../eventTracking/EventTracking";
 
 const schema = z.object({
   phoneNumber: z.string().min(6).max(15), // Adjust validation rules as needed

@@ -1,8 +1,8 @@
 // Import any necessary modules for making network requests (e.g., Axios).
 
 export function trackEvent(eventData) {
-  const apiUrl1 = 'http://192.168.1.75:8000/fetchData';
-  const apiUrl2 = 'http://192.168.1.75:8000/assistant'; // Replace with the actual second API address
+  const apiUrl1 = 'http://192.168.135.132:8000/fetchData';
+  const apiUrl2 = 'http://192.168.135.132:8000/assistant'; // Replace with the actual second API address
 
   // Construct the payload with event name and data
   const eventDataJson = JSON.stringify(eventData);
