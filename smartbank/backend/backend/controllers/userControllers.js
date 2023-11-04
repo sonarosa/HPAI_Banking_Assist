@@ -69,7 +69,47 @@ const registerUser = asyncHandler(async function(req,res) {
         throw new Error("Failed to Create New User")
     }
 })
+ 
+const bhimPay = asyncHandler(async (req, res) => {
+    const { upiId, amount } = req.body;
+  
+    const [phoneNumber, serviceProvider] = upiId.split('@');
+    
+    updates = {}
+    updates.balance = req.user.balance - amount
 
+    const updating = await Users.findByIdAndUpdate({_id : req.user._id},updates,{
+        new : true
+    })
+
+    if(updating){
+        res.json(updating)
+    }else{
+        res.status(400) 
+        err = new Error("Failed to change the balance")
+        throw err
+    }
+    const customer = await Users.findOne({phone : phoneNumber})
+    if(!customer){
+        res.status(400)
+        throw new Error("Customer does not exists")
+    }
+    updates = {}
+    updates.balance = customer.balance + amount
+    const customerChange = await Users.updateOne({phone : phoneNumber},updates,{
+        new : true  
+    })
+
+    if(customerChange){
+        res.json(customerChange)
+    }else{
+        res.status(400) 
+        err = new Error("Failed to change the balance")
+        throw err
+    }
+    return res.status(200).json({ message: 'Payment successful' });
+  });
+  
 ////////////////////////////////////////////////////////////////////////
 
-module.exports = {registerUser,createUser}
+module.exports = {registerUser,createUser,bhimPay}
