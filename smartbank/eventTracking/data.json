@@ -16,17 +16,12 @@
   },
   {
     "event": "button pressed",
-    "eventName": "logout_button",
-    "timestamp": "01/11/2023, 03:01:41"
+    "eventName": "signin_button",
+    "timestamp": "01/11/2023, 03:00:58"
   },
   {
     "event": "button pressed",
-    "eventName": "logout_button",
-    "timestamp": "11/01/2023, 03:01:41"
-  },
-  {
-    "event": "button pressed",
-    "eventName": "profile_button",
-    "timestamp": "11/01/2023, 03:01:41"
+    "eventName": "ifsc_button",
+    "timestamp": "01/11/2023, 03:01:20"
   }
 ]

@@ -1,14 +1,14 @@
 // Import any necessary modules for making network requests (e.g., Axios).
 
 export function trackEvent(eventData) {
-  const apiUrl1 = 'http://192.168.135.132:8000/fetchData';
-  const apiUrl2 = 'http://192.168.135.132:8000/assistant'; // Replace with the actual second API address
+  const apiUrl1 = 'http://192.168.37.132:8000/fetchData';
+  const apiUrl2 = 'http://192.168.37.132:8000/assistant'; // Replace with the actual second API address
 
   // Construct the payload with event name and data
   const eventDataJson = JSON.stringify(eventData);
 
   // First API Call
-  fetch(apiUrl1, {
+  const firstApiPromise = fetch(apiUrl1, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ export function trackEvent(eventData) {
     });
 
   // Second API Call
-  fetch(apiUrl2, {
+  const secondApiPromise = fetch(apiUrl2, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -70,4 +70,6 @@ export function trackEvent(eventData) {
     .catch((error) => {
       console.error('Failed to fetch data from the second API:', error);
     });
+
+    return { firstApiPromise, secondApiPromise };
 }

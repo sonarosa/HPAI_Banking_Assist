@@ -125,7 +125,7 @@ def fill_messages(set_of_preds):
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "system", "content": "Give 2 sentence questions to the user to suggest what he is searching for ?"},
         {"role": "system", "content": "Be formal, no salutations just questions"},
-        {"role": "user", "content": "I am user of the state bank of India Application, I need help finding a feature"},
+        {"role": "user", "content": "I am user of the South Indian Bank Application, I need help finding a feature"},
         {"role": "system", "content": "The User is searching for {0}".format(set_of_preds[0])},
         {"role": "system", "content": "Give the user a  suggestion"},
         {"role": "user", "content": "What could I be possibly searching ? "},
