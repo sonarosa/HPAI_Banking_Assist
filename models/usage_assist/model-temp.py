@@ -24,7 +24,9 @@ def main():
             data,
             r"C:\Users\91892\Desktop\HPAI_Banking_Assist\models\usage_assist\model.pt"
         )
-        print(out)
+        # print(out)
+        for value in out.values():
+            print(value)
     except json.JSONDecodeError as e:
         print("Error parsing JSON argument:", e)
 
