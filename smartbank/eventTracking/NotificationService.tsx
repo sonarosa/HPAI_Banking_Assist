@@ -26,21 +26,23 @@ const PersistentNotification = () => {
 const styles = StyleSheet.create({
   container: {
     width: 300, // Set a specific width for the notification
-    backgroundColor: 'rgba(255, 100, 100, 0.8)', // Change the background color to a chatbot-like color
+    backgroundColor: 'white', // Change the background color to white
     padding: 10, // Adjust padding for spacing
     borderRadius: 20, // Increase the borderRadius for a rounded chat-like shape
+    borderColor: 'black', // Add a black border
+    borderWidth: 1, // Specify the border width
     shadowColor: 'rgba(255, 0, 0, 0.5)', // Semi-transparent red shadow color
     shadowOffset: {
       width: 4,
       height: 4,
     },
-    shadowOpacity: 2, // Corrected the shadowOpacity to 1
+    shadowOpacity: 1, // Corrected the shadowOpacity to 1
     shadowRadius: 3.84,
     elevation: 5,
     marginBottom: 10, // Add margin at the bottom to move it up
   },
   text: {
-    color: 'rgb(5, 10, 50)',
+    color: 'black', // Set the font color to black
     fontSize: 14, // Increase the font size for better readability
     fontWeight: 'bold',
   },
