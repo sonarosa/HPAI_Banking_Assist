@@ -55,17 +55,9 @@ const DashboardScreen = () => {
           alignSelf: "center",
         }}
       >
-<<<<<<< HEAD
-        <Pressable onPress={() => navigation.navigate("QRCodeScanner")}>
-          <Text style={{ fontSize: 18, fontWeight: "bold", color: "white", textAlign: "center" }}>
-          View_ifsc
-          </Text>
-        </Pressable>
-=======
         <Text style={{ fontSize: 18, fontWeight: "bold", color: "white", textAlign: "center" }}>
           REGISTER NOW
         </Text>
->>>>>>> 1f7d073d6ff937a5bf78287ccb737e6726ab934f
       </View>
 
       <View style={{ flex: 1, paddingHorizontal: 10 }}>
