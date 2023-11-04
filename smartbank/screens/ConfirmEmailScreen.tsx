@@ -44,7 +44,7 @@ const DashboardScreen = () => {
           navigation.navigate("MobileScreen"); // Navigate to the Online Payment screen
           break;
       case "DTH":
-            navigation.navigate("DTH"); // Navigate to the Online Payment screen
+            navigation.navigate("Dth"); // Navigate to the Online Payment screen
             break;
       case "Electricity":
             navigation.navigate("ElectricityScreen"); // Navigate to the Online Payment screen
@@ -66,6 +66,30 @@ const DashboardScreen = () => {
 
       case "Update KYC":
                 navigation.navigate("UpdateKYCScreen"); // Navigate to the Online Payment screen
+                break;
+
+                case "FAQs":
+                  navigation.navigate("FAQsScreen"); // Navigate to the Online Payment screen
+                  break;
+
+                  case "Locker Availability":
+                navigation.navigate("LockerScreen"); // Navigate to the Online Payment screen
+                break;
+
+                case "College/School fee":
+                navigation.navigate("CollegeScreen"); // Navigate to the Online Payment screen
+                break;
+
+                case "Offerings":
+                navigation.navigate("OfferingsScreen"); // Navigate to the Online Payment screen
+                break;
+
+                case "Remit Money Abroad":
+                navigation.navigate("RemitMoneyScreen"); // Navigate to the Online Payment screen
+                break;
+
+                case "Online Payment":
+                navigation.navigate("OnlinePayment Screen"); // Navigate to the Online Payment screen
                 break;
       
         console.log(`Pressed ${featureLabel}`);
