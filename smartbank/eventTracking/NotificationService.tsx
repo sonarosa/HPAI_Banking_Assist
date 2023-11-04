@@ -17,7 +17,7 @@ const PersistentNotification = () => {
   return (
     <Animated.View style={[styles.container, { transform: [{ translateX: moveAnimation }] }]}>
       <Text style={styles.text}>
-        This is your modern, smaller persistent notification
+        Are you searching for depositing money?
       </Text>
     </Animated.View>
   );
