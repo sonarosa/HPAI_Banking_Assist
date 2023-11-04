@@ -60,7 +60,7 @@ export default function LoginScreen() {
 
       if (result.success) {
         // Fingerprint authentication succeeded, navigate to the next dashboard page
-        navigation.navigate('Dashboard');
+        navigation.navigate('ConfirmEmail');
       } else {
         // Fingerprint authentication failed, show a pop-up for password entry
         Alert.alert("Fingerprint Invalid", "Please enter your password.", [
