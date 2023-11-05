@@ -11,39 +11,39 @@ export function trackEvent(eventData) {
   // Construct the payload with event name and data
   const eventDataJson = JSON.stringify(eventData);
 
-  // // First API Call
-  //  fetch(apiUrl1, {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  //   body: eventDataJson,
-  // })
-  //   .then((response) => {
-  //     if (response.ok) {
-  //       const contentType = response.headers.get('content-type');
-  //       if (contentType && contentType.includes('application/json')) {
-  //         return response.json();
-  //       } else {
-  //         return response.text();
-  //       }
-  //     } else {
-  //       throw new Error('Network request failed');
-  //     }
-  //   })
-  //   .then((data) => {
-  //     if (typeof data === 'string') {
-  //       console.log(data);
-  //       // setMessage(data.message);
-  //     } else {
-  //       console.log( data);
+  // First API Call
+   fetch(apiUrl1, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: eventDataJson,
+  })
+    .then((response) => {
+      if (response.ok) {
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          return response.json();
+        } else {
+          return response.text();
+        }
+      } else {
+        throw new Error('Network request failed');
+      }
+    })
+    .then((data) => {
+      if (typeof data === 'string') {
+        console.log(data);
+        // setMessage(data.message);
+      } else {
+        console.log( data);
         
-  //       // You can update your component state or perform any other action with the JSON data.
-  //     }
-  //   })
-  //   .catch((error) => {
-  //     console.error('Failed to fetch data from the first API:', error);
-  //   });
+        // You can update your component state or perform any other action with the JSON data.
+      }
+    })
+    .catch((error) => {
+      console.error('Failed to fetch data from the first API:', error);
+    });
 
   // Second API Call
   return fetch(apiUrl2, {

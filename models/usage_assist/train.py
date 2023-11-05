@@ -74,7 +74,7 @@ output_dim = vocab_size  # Output dimension
 num_layers = 2  # Number of LSTM layers
 dropout = 0.5  # Dropout probability
 batch_size = 1  # Batch size
-num_epochs = 1 # Number of epochs
+num_epochs = 5 # Number of epochs
 
 # Create an instance of the Encoder-Decoder model
 model = EncoderDecoder(vocab_size, embedding_dim, hidden_dim, output_dim, num_layers, dropout)

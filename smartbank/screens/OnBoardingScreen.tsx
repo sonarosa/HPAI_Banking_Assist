@@ -58,10 +58,14 @@ export default function OnBoardingScreen() {
           onPress={() => {
             const eventData = {
               event: 'button pressed',
-              eventName: 'login button',
+              eventName: 'login',
               timestamp: Date.now(),
             };
-            const response   = trackEvent(eventData);
+            trackEvent(eventData).then((data) => {
+              console.log(data); // Use the data from the second API
+              // You can update your component state or perform any other action with the data.
+              setEventData(data);
+            })
             
             navigation.navigate("Login")}}
         >
