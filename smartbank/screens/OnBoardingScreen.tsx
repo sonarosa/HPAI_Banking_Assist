@@ -37,8 +37,8 @@ export default function OnBoardingScreen() {
               eventName: 'signup',
               timestamp: Date.now(),
             };
-            const response = await trackEvent(eventData);
-            console.log("API Response:", JSON.stringify(response, null, 2)); // Log the response data
+            const response = trackEvent(eventData);
+            
             
             navigation.navigate("SignUp")
           }

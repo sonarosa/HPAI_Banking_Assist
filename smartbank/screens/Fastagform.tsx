@@ -31,7 +31,7 @@ const FASTagRechargeForm = ({ route }) => {
         value={vehicleNumber}
         onChangeText={(text) => setVehicleNumber(text)}
       />
-      <Button title="Recharge" onPress={handleRecharge} />
+      <Button title="Recharge" onPress={handleRecharge} color={"red"} />
     </View>
   );
 };

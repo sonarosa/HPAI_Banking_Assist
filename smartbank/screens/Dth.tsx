@@ -19,31 +19,59 @@ const DTHRechargeScreen = () => {
     alert(`Recharge Amount: ${rechargeAmount}\nOperator: ${selectedOperator.name}`);
   };
 
+  // Split DTHOperators into two rows
+  const firstRow = DTHOperators.slice(0, DTHOperators.length / 2);
+  const secondRow = DTHOperators.slice(DTHOperators.length / 2);
+
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text style={{ fontSize: 24, marginBottom: 20 }}>Select DTH Operator</Text>
-      <FlatList
-        data={DTHOperators}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => setSelectedOperator(item)}
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginVertical: 10,
-              borderWidth: selectedOperator === item ? 2 : 0,
-              borderColor: selectedOperator === item ? 'red' : 'transparent',
-              borderRadius: 10,
-            }}
-          >
-            {/* Add the operator's icon here if you have the images */}
-            <Text style={{ marginLeft: 10 }}>{item.name}</Text>
-          </TouchableOpacity>
-        )}
-      />
+      <View style={{ flexDirection: 'row' }}>
+        <FlatList
+          data={firstRow}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => setSelectedOperator(item)}
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginVertical: 10,
+                borderWidth: selectedOperator === item ? 2 : 0,
+                borderColor: selectedOperator === item ? 'red' : 'transparent',
+                borderRadius: 10,
+              }}
+            >
+              {/* Add the operator's icon here if you have the images */}
+              <Text style={{ marginLeft: 10 }}>{item.name}</Text>
+            </TouchableOpacity>
+          )}
+        />
+        <FlatList
+          data={secondRow}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => setSelectedOperator(item)}
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginVertical: 10,
+                borderWidth: selectedOperator === item ? 2 : 0,
+                borderColor: selectedOperator === item ? 'red' : 'transparent',
+                borderRadius: 10,
+              }}
+            >
+              {/* Add the operator's icon here if you have the images */}
+              <Text style={{ marginLeft: 10 }}>{item.name}</Text>
+            </TouchableOpacity>
+          )}
+        />
+      </View>
       <Text style={{ fontSize: 20, marginTop: 20 }}>Selected Operator: {selectedOperator.name}</Text>
       <Text style={{ fontSize: 20, marginTop: 20 }}>Enter Recharge Amount:</Text>
       <TextInput
