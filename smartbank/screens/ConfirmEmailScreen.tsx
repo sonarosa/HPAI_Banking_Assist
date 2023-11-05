@@ -295,7 +295,7 @@ const DashboardScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF', // White background
+    backgroundColor: 'rgb(255,255,255)', // White background
   },
   headerImage: {
     flex: 1,

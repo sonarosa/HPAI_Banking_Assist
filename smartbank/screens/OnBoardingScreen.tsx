@@ -4,11 +4,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { LoginNavigationProps } from "../navigation/LoginStack";
 import { trackEvent }  from "../eventTracking/EventTracking";
-import { useApi } from '../eventTracking/ApiContext';
+import { useEvent } from '../EventContext';
 
 export default function OnBoardingScreen() {
 
   // const { setSecondApiPromise } = useApi();
+  const { setEventData } = useEvent();
   
   const navigation = useNavigation<LoginNavigationProps>();
 
@@ -37,7 +38,11 @@ export default function OnBoardingScreen() {
               eventName: 'signup',
               timestamp: Date.now(),
             };
-            const response = trackEvent(eventData);
+            trackEvent(eventData).then((data) => {
+              console.log(data); // Use the data from the second API
+              // You can update your component state or perform any other action with the data.
+              setEventData(data);
+            })
             
             
             navigation.navigate("SignUp")

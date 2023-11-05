@@ -188,7 +188,7 @@ def run_usage_inference(input_data: dict, model_path: str = None):
     train_dataset = AppDataset(data, vocab)
     keys = list(vocab.keys())
 
-    print("vocab",vocab)
+    # print("vocab",vocab)
 
 
     app_features, times, goal = train_dataset[0]
