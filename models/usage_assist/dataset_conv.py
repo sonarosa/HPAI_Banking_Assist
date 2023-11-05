@@ -2,7 +2,7 @@ import pandas as pd
 import random
 import json
 
-csv_file = "sib_finathon_dataset.csv"
+csv_file = "./sib_finathon_dataset.csv"
 df = pd.read_csv(csv_file)
 
 df['timestamp'] = pd.to_datetime(df['timestamp'])
@@ -42,8 +42,10 @@ for _, row in customer_summary.iterrows():
             "goal"  : []
     }
     time_s = 1
-    for ev in row['event']:
-        if ev != row['event'][-1]:
+    for i,ev in enumerate(row['event']):
+        if len(row['event']) == 1:
+            pass
+        if i != len(row['event']) :
             userdata["visit"].append(rev_keys[ev])
             userdata["time"].append(time_s)
             time_s+=random.randint(1,10)
