@@ -21,7 +21,8 @@ Converting the data into the following format:
         "goal"  : [110]
     } 
 '''
-vocab = {}
+vocab = {'gold_loan_renew': 0, 'app_login': 1, 'priority_banking_request': 2, 'transaction_imps': 3, 'fd_open': 4, 'transaction_own_acc': 5, 'rd_opening': 6, 'billpay_recharge': 7, 'kyc_update': 8, 'FOR_add_beneficiary': 9, 'FOR_send_money': 10, 'fsld_open': 11, 'mail_id_update': 12, 'fast_tag': 13, 'transaction_neft': 14, 'apply_apy': 15}
+
 keys = {}
 
 
@@ -125,7 +126,7 @@ def fill_messages(set_of_preds):
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "system", "content": "Give 2 sentence questions to the user to suggest what he is searching for ?"},
         {"role": "system", "content": "Be formal, no salutations just questions"},
-        {"role": "user", "content": "I am user of the state bank of India Application, I need help finding a feature"},
+        {"role": "user", "content": "I am user of the South Indian Bank Application, I need help finding a feature"},
         {"role": "system", "content": "The User is searching for {0}".format(set_of_preds[0])},
         {"role": "system", "content": "Give the user a  suggestion"},
         {"role": "user", "content": "What could I be possibly searching ? "},
@@ -169,8 +170,8 @@ def run_usage_inference(input_data: dict, model_path: str = None):
     # Defining model params
 
     # Define the model's hyperparameters
-    vocab_size = 200  # Vocabulary size
-    embedding_dim = 100  # Dimension of word embeddings
+    vocab_size = 400  # Vocabulary size
+    embedding_dim = 500  # Dimension of word embeddings
     hidden_dim = 256  # LSTM hidden state dimension
     output_dim = vocab_size  # Output dimension
     num_layers = 2  # Number of LSTM layers
@@ -188,6 +189,8 @@ def run_usage_inference(input_data: dict, model_path: str = None):
     train_dataset = AppDataset(data, vocab)
     keys = list(vocab.keys())
 
+    print("vocab",vocab)
+
 
     app_features, times, goal = train_dataset[0]
 
@@ -196,7 +199,13 @@ def run_usage_inference(input_data: dict, model_path: str = None):
     output = output.view(-1, output_dim)
     indexes_in_order = torch.argsort(output)
 
-    sorted_keys  = [keys[i] for i in indexes_in_order[0]]
+
+    length = len(indexes_in_order[0])
+    print(keys)
+    print(indexes_in_order[0][:length])
+
+
+    sorted_keys  = [keys[i] for i in indexes_in_order[0][:length]]
 
     # print(sorted_keys)
     chats = get_message([sorted_keys[0]])
@@ -211,29 +220,40 @@ if __name__ == "__main__":
         [
             {
             "event": "button pressed",
-            "eventName": "signin_button",
+            "eventName": "transaction_imps",
             "timestamp": "01/11/2023, 03:00:58"
             },
             {
             "event": "button pressed",
-            "eventName": "ifsc_button",
+            "eventName": "FOR_send_money",
             "timestamp": "01/11/2023, 03:01:20"
             },
             {
             "event": "button pressed",
-            "eventName": "login_button",
+            "eventName": "fsld_open",
             "timestamp": "01/11/2023, 03:01:41"
+            },
+            {
+            "event": "button pressed",
+            "eventName": "transaction_imps",
+            "timestamp": "01/11/2023, 03:00:58"
+            },
+            {
+            "event": "button pressed",
+            "eventName": "FOR_send_money",
+            "timestamp": "01/11/2023, 03:01:20"
             }
         ]
     }
 
     with open('./test.json', 'r') as json_file:
         data = json.load(json_file)
+        print(data)
 
-    data = {"data" : eval(data['data']) }
+    
     out = run_usage_inference(
         data,
-        "./model.pt"
+        './model_2.pt',
     )
 
     print(out)

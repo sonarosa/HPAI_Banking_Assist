@@ -50,7 +50,6 @@ class AppDataset(Dataset):
 
     def __getitem__(self, idx):
         visit = self.data[idx]
-        print(visit)
         app_features = torch.LongTensor(visit["visit"])
         times = torch.LongTensor(visit["time"])
         goal = torch.LongTensor([visit["goal"][0]])
@@ -68,14 +67,14 @@ vocab = {'gold_loan_renew': 0, 'app_login': 1, 'priority_banking_request': 2, 't
 keys = list(vocab.keys())
 
 # Define the model's hyperparameters
-vocab_size = 200  # Vocabulary size
-embedding_dim = 100  # Dimension of word embeddings
+vocab_size = 400  # Vocabulary size
+embedding_dim = 500  # Dimension of word embeddings
 hidden_dim = 256  # LSTM hidden state dimension
 output_dim = vocab_size  # Output dimension
 num_layers = 2  # Number of LSTM layers
 dropout = 0.5  # Dropout probability
 batch_size = 1  # Batch size
-num_epochs = 100 # Number of epochs
+num_epochs = 1 # Number of epochs
 
 # Create an instance of the Encoder-Decoder model
 model = EncoderDecoder(vocab_size, embedding_dim, hidden_dim, output_dim, num_layers, dropout)
@@ -97,7 +96,8 @@ validation_loader = DataLoader(validation_dataset, batch_size=batch_size, shuffl
 # Training loop
 for epoch in range(num_epochs):
     model.train()
-    for app_features, times, goal in train_loader:
+    for i, (app_features, times, goal) in enumerate(train_loader):
+        
         optimizer.zero_grad()
 
         output = model(app_features, times, goal)
@@ -106,11 +106,14 @@ for epoch in range(num_epochs):
         goal = goal.view(-1)
 
         loss = criterion(output, goal)
-        print(loss)
         loss.backward()
         optimizer.step()
 
+        print("Epoch: {}/{} loss {}".format(epoch+1, num_epochs,loss), end="\r")
+
 # Save the model
-torch.save(model.state_dict(), "model.pt")
+torch.save(model.state_dict(), "./model_2.pt")
+
+#
 
 

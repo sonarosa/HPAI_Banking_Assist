@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Animated, Easing } from 'react-native';
 
-const PersistentNotification = () => {
+const PersistentNotification = ({ secondApiPromise }) => {
   const moveAnimation = new Animated.Value(-400); // Initial position off the screen
-
+  const [notificationMessage, setNotificationMessage] = useState('Loading...');
+  
   useEffect(() => {
     // Animate the notification's position from left to right
     Animated.timing(moveAnimation, {
@@ -12,12 +13,29 @@ const PersistentNotification = () => {
       easing: Easing.linear,
       useNativeDriver: false, // Required for positioning
     }).start();
+
+    performSecondApiCall();
   }, []);
+
+  const performSecondApiCall = async () => {
+    try {
+      const response = await secondApiPromise; // Assuming secondApiPromise is in scope
+
+      if (response && typeof response === 'object') {
+        // Assuming the response is JSON data
+        setNotificationMessage('Data received from the second server: ' + JSON.stringify(response));
+      } else if (typeof response === 'string') {
+        setNotificationMessage('Text Data received from the second server: ' + response);
+      }
+    } catch (error) {
+      setNotificationMessage('Failed to fetch data from the second API: ' + error.message);
+    }
+  };
 
   return (
     <Animated.View style={[styles.container, { transform: [{ translateX: moveAnimation }] }]}>
       <Text style={styles.text}>
-        Are you searching for depositing money?
+      {notificationMessage}
       </Text>
     </Animated.View>
   );

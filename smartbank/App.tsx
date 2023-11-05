@@ -6,15 +6,18 @@ import { MainStack } from "./navigation/MainStack";
 import React from 'react';
 import { View, Text } from 'react-native';
 import PersistentNotification from './eventTracking/NotificationService';
+import { ApiProvider } from './eventTracking/ApiContext';
 
 export default function App() {
   return (
+    <ApiProvider>
     <NavigationContainer>
       <AuthProvider>
         <Router />
         <PersistentNotification />
       </AuthProvider>
     </NavigationContainer>
+    </ApiProvider>
   );
 }
 

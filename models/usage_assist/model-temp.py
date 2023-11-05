@@ -18,10 +18,11 @@ def main():
         # print(data)
         # with open('./test.json', 'w') as json_file:
         #     json.dump(json_argument, json_file, indent=4)
-        # data_new = data["data"][-3:]
-        # print(data_new)
+        last_three_items_preserved_format = {
+            "data": data["data"][-4:]
+        }
         out = run_usage_inference(
-            data,
+            last_three_items_preserved_format,
             r"C:\Users\91892\Desktop\HPAI_Banking_Assist\models\usage_assist\model.pt"
         )
         # print(out)

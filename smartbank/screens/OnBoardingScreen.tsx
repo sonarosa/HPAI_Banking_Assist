@@ -4,9 +4,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { LoginNavigationProps } from "../navigation/LoginStack";
 import { trackEvent }  from "../eventTracking/EventTracking";
-
+import { useApi } from '../eventTracking/ApiContext';
 
 export default function OnBoardingScreen() {
+
+  // const { setSecondApiPromise } = useApi();
+  
   const navigation = useNavigation<LoginNavigationProps>();
 
   return (
@@ -27,14 +30,15 @@ export default function OnBoardingScreen() {
       <View>
         <Pressable
           className="h-12 w-full items-center justify-center rounded-xl bg-red-500"
-          onPress={() => 
+          onPress={async () => 
           {
             const eventData = {
               event: 'button pressed',
-              eventName: 'signin_button',
+              eventName: 'signup',
               timestamp: Date.now(),
             };
-            trackEvent(eventData);
+            const response = trackEvent(eventData);
+            
             
             navigation.navigate("SignUp")
           }
@@ -46,7 +50,15 @@ export default function OnBoardingScreen() {
         </Pressable>
         <Pressable
           className="mt-4 h-12 w-full items-center justify-center rounded-xl bg-red-200"
-          onPress={() => navigation.navigate("Login")}
+          onPress={() => {
+            const eventData = {
+              event: 'button pressed',
+              eventName: 'login button',
+              timestamp: Date.now(),
+            };
+            const response   = trackEvent(eventData);
+            
+            navigation.navigate("Login")}}
         >
           <Text className="text-[16px] font-semibold text-primary-500">
             Log in

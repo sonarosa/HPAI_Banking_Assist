@@ -147,7 +147,7 @@ app.post('/fetchData', (req, res) => {
         res.status(500).send('Error writing data to file');
       } else {
         console.log('Data appended to file:', filePath);
-        res.send('Data received, logged in the terminal, and appended to the file.');
+        res.send('Data appended to the file.');
       }
     });
   }); // Close the write stream when done
