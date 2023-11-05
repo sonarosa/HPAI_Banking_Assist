@@ -22,8 +22,15 @@ import Dth from "../screens/Dth";
 import ElectricityScreen from "../screens/ElectricityScreen";
 import Fastag from "../screens/Fastag";
 import FastTagform from "../screens/Fastagform";
-
-
+import DebitCardScreen from "../screens/DebitCardScreen";
+import ChequeScreen from "../screens/ChequeScreen";
+import ComplaintsScreen from "../screens/ComplaintsScreen";
+import UpdateKYCScreen from "../screens/UpdateKYCScreen";
+import FAQsScreen from "../screens/FAQsScreen";
+import LockerScreen from "../screens/LockerScreen";
+import CollegeScreen from "../screens/CollegeScreen";
+import OfferingsScreen from "../screens/OfferingsScreen";
+import RemitMoneyScreen from "../screens/RemitMoneyScreen";
 
 export type LoginStackParams = {
   OnBoarding: undefined;
@@ -45,6 +52,15 @@ export type LoginStackParams = {
   ElectricityScreen: undefined;
   Fastag: undefined;
   FastTagform :undefined;
+  DebitCardScreen: undefined;
+  ChequeScreen: undefined;
+  ComplaintsScreen: undefined;
+  UpdateKYCScreen: undefined;
+  FAQsScreen: undefined;
+  LockerScreen: undefined;
+  CollegeScreen: undefined;
+  OfferingsScreen: undefined;
+  RemitMoneyScreen: undefined;
 };
 
 export type LoginNavigationProps =
@@ -79,11 +95,15 @@ export function LoginStack() {
       <Stack.Screen name="ElectricityScreen" component={ElectricityScreen} />
       <Stack.Screen name="Fastag" component={Fastag} />
       <Stack.Screen name="FastTagform" component={FastTagform} />
-
-
-
-
-
+      <Stack.Screen name="DebitCardScreen" component={DebitCardScreen} />
+      <Stack.Screen name="ChequeScreen" component={ChequeScreen} />
+      <Stack.Screen name="ComplaintsScreen" component={ComplaintsScreen} />
+      <Stack.Screen name="UpdateKYCScreen" component={UpdateKYCScreen} />
+      <Stack.Screen name="FAQsScreen" component={FAQsScreen} />
+      <Stack.Screen name="LockerScreen" component={LockerScreen} />
+      <Stack.Screen name="CollegeScreen" component={CollegeScreen} />
+      <Stack.Screen name="OfferingsScreen" component={OfferingsScreen} />
+      <Stack.Screen name="RemitMoneyScreen" component={RemitMoneyScreen} />
 
 
 

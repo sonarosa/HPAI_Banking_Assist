@@ -1,14 +1,18 @@
 // Import any necessary modules for making network requests (e.g., Axios).
 
-export function trackEvent(eventData) {
-  const apiUrl1 = 'http://192.168.135.132:8000/fetchData';
-  const apiUrl2 = 'http://192.168.135.132:8000/assistant'; // Replace with the actual second API address
+import { useState } from "react";
 
+export function trackEvent(eventData) {
+  const apiUrl1 = 'http://192.168.37.132:8000/fetchData';
+  const apiUrl2 = 'http://192.168.37.132:8000/assistant'; // Replace with the actual second API address
+
+
+  
   // Construct the payload with event name and data
   const eventDataJson = JSON.stringify(eventData);
 
   // First API Call
-  fetch(apiUrl1, {
+   fetch(apiUrl1, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -29,9 +33,11 @@ export function trackEvent(eventData) {
     })
     .then((data) => {
       if (typeof data === 'string') {
-        console.log('Text Data received from the first server:', data);
+        console.log(data);
+        // setMessage(data.message);
       } else {
-        console.log('Data received from the first server:', data);
+        console.log( data);
+        
         // You can update your component state or perform any other action with the JSON data.
       }
     })
@@ -40,7 +46,7 @@ export function trackEvent(eventData) {
     });
 
   // Second API Call
-  fetch(apiUrl2, {
+   fetch(apiUrl2, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -70,4 +76,5 @@ export function trackEvent(eventData) {
     .catch((error) => {
       console.error('Failed to fetch data from the second API:', error);
     });
+
 }

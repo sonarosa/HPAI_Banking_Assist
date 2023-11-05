@@ -10,7 +10,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   Pressable,
-  
   Text,
   TextInput,
   View,
@@ -77,100 +76,99 @@ export default function LoginScreen() {
 
   return (
     <ImageBackground
-    source={require("../assets/sib_login_page.jpeg")} // Replace with the path to your background image
-    style={{ width: 400, height: 800, aspectRatio: 1.92 / 4 }}
-  resizeMode="stretch"
-  >
-     <SafeAreaView style={{ flex: 1, backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
+      source={require("../assets/sib_login_page.jpeg")} // Replace with the path to your background image
+      style={{ flex: 1, resizeMode: "cover" }}
+    >
+      <SafeAreaView style={{ flex: 1, backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
-        <View className="flex-1 pb-7">
-          <View className="h-11 w-full justify-center">
-            <Pressable
-              className="absolute top-0 left-0 h-11 w-11 items-center justify-center"
-              onPress={() => navigation.goBack()}
-            >
-              <Ionicons name="arrow-back" size={24} color="#2791B5" />
-            </Pressable>
-          </View>
-          <View className="flex-1 px-4">
-            <Image
-              style={{
-                resizeMode: "contain",
-                width: 200,
-                height: 100,
-                left: 10,
-              }}
-              source={require("../assets/sib.png")}
-            />
-            <Text className="mt-5 text-[34px] font-bold text-[#0C212C] text-center color-white">
-              Login
-            </Text>
-            <Text className="mt-5 text-[13px] font-medium text-red-600">
-              Sign in to South Indian Bank App.
-            </Text>
-            <Pressable
-              style={{
-                backgroundColor: 'rgba(0, 0, 0, 0.4)',
-                borderRadius: 8,
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}
-              className={classNames(
-                "h-12 w-full flex-row items-center justify-center space-x-2 rounded-xl",
-                isValid ? "bg-primary-500" : "bg-neutral-200"
-              )}
-              onPress={handleFingerprintAuth}
-            >
-              <Text
+          <View className="flex-1 pb-7">
+            <View className="h-11 w-full justify-center">
+              <Pressable
+                className="absolute top-0 left-0 h-11 w-11 items-center justify-center"
+                onPress={() => navigation.goBack()}
+              >
+                <Ionicons name="arrow-back" size={24} color="#2791B5" />
+              </Pressable>
+            </View>
+            <View className="flex-1 px-4">
+              <Image
                 style={{
-                  color: "white",
+                  resizeMode: "contain",
+                  width: 200,
+                  height: 100,
+                  left: 10,
+                }}
+                source={require("../assets/sib.png")}
+              />
+              <Text className="mt-5 text-[34px] font-bold text-[#0C212C] text-center color-white">
+                Login
+              </Text>
+              <Text className="mt-5 text-[13px] font-medium text-red-600">
+                Sign in to South Indian Bank App.
+              </Text>
+              <Pressable
+                style={{
+                  backgroundColor: 'rgba(0, 0, 0, 0.4)',
                   borderRadius: 8,
+                  flexDirection: 'row',
+                  alignItems: 'center',
                 }}
                 className={classNames(
-                  "text-[16px] font-bold",
-                  isValid ? "text-white" : "text-neutral-400"
+                  "h-12 w-full flex-row items-center justify-center space-x-2 rounded-xl",
+                  isValid ? "bg-primary-500" : "bg-neutral-200"
                 )}
+                onPress={handleFingerprintAuth}
               >
-                Fingerprint
-              </Text>
-              {isSubmitting && <ActivityIndicator />}
-            </Pressable>
-            <Text className="mt-5 text-[13px] font-medium text-red-600 text-center">
-              OR enter your password:
-            </Text>
-            <Controller
-              control={control}
-              name="password"
-              rules={{ required: true }}
-              render={({ field: { onChange, value, ref } }) => (
-                <TextInput
-                  className="mt-6 h-14 w-full rounded-xl border-[1px] border-[#E7EAEB] px-3.5"
-                  textContentType="password"
-                  secureTextEntry={true}
-                  placeholder="Password"
-                  placeholderTextColor="#2B6173"
-                  editable={!isSubmitting}
-                  value={value}
-                  onChangeText={onChange}
-                  ref={ref}
-                />
-              )}
-            />
-            <View className="px-4">
-              <Text className="mt-4 w-full text-center text-[13px] font-bold text-primary-500">
-                {"Don't have an account? "}
                 <Text
-                  onPress={() => navigation.navigate("SignUp")}
-                  className="text-primary-400"
+                  style={{
+                    color: "white",
+                    borderRadius: 8,
+                  }}
+                  className={classNames(
+                    "text-[16px] font-bold",
+                    isValid ? "text-white" : "text-neutral-400"
+                  )}
                 >
-                  Sign Up
+                  Fingerprint
                 </Text>
+                {isSubmitting && <ActivityIndicator />}
+              </Pressable>
+              <Text className="mt-5 text-[13px] font-medium text-red-600 text-center">
+                OR enter your password:
               </Text>
+              <Controller
+                control={control}
+                name="password"
+                rules={{ required: true }}
+                render={({ field: { onChange, value, ref } }) => (
+                  <TextInput
+                    className="mt-6 h-14 w-full rounded-xl border-[1px] border-[#E7EAEB] px-3.5"
+                    textContentType="password"
+                    secureTextEntry={true}
+                    placeholder="Password"
+                    placeholderTextColor="#2B6173"
+                    editable={!isSubmitting}
+                    value={value}
+                    onChangeText={onChange}
+                    ref={ref}
+                  />
+                )}
+              />
+              <View className="px-4">
+                <Text className="mt-4 w-full text-center text-[13px] font-bold text-primary-500">
+                  {"Don't have an account? "}
+                  <Text
+                    onPress={() => navigation.navigate("SignUp")}
+                    className="text-primary-400"
+                  >
+                    Sign Up
+                  </Text>
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
     </ImageBackground>
   );
 }
