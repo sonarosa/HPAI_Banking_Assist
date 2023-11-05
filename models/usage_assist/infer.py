@@ -21,7 +21,8 @@ Converting the data into the following format:
         "goal"  : [110]
     } 
 '''
-vocab = {}
+vocab = {'gold_loan_renew': 0, 'app_login': 1, 'priority_banking_request': 2, 'transaction_imps': 3, 'fd_open': 4, 'transaction_own_acc': 5, 'rd_opening': 6, 'billpay_recharge': 7, 'kyc_update': 8, 'FOR_add_beneficiary': 9, 'FOR_send_money': 10, 'fsld_open': 11, 'mail_id_update': 12, 'fast_tag': 13, 'transaction_neft': 14, 'apply_apy': 15}
+
 keys = {}
 
 
@@ -198,7 +199,13 @@ def run_usage_inference(input_data: dict, model_path: str = None):
     output = output.view(-1, output_dim)
     indexes_in_order = torch.argsort(output)
 
-    sorted_keys  = [keys[i] for i in indexes_in_order[0]]
+
+    length = len(indexes_in_order[0])
+    print(keys)
+    print(indexes_in_order[0][:length])
+
+
+    sorted_keys  = [keys[i] for i in indexes_in_order[0][:length]]
 
     # print(sorted_keys)
     chats = get_message([sorted_keys[0]])
@@ -235,26 +242,6 @@ if __name__ == "__main__":
             "event": "button pressed",
             "eventName": "FOR_send_money",
             "timestamp": "01/11/2023, 03:01:20"
-            },
-            {
-            "event": "button pressed",
-            "eventName": "fsld_open",
-            "timestamp": "01/11/2023, 03:01:41"
-            },
-            {
-            "event": "button pressed",
-            "eventName": "transaction_imps",
-            "timestamp": "01/11/2023, 03:00:58"
-            },
-            {
-            "event": "button pressed",
-            "eventName": "FOR_send_money",
-            "timestamp": "01/11/2023, 03:01:20"
-            },
-            {
-            "event": "button pressed",
-            "eventName": "fsld_open",
-            "timestamp": "01/11/2023, 03:01:41"
             }
         ]
     }
@@ -266,7 +253,7 @@ if __name__ == "__main__":
     
     out = run_usage_inference(
         data,
-        None,
+        './model_2.pt',
     )
 
     print(out)
