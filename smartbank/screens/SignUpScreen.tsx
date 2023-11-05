@@ -165,7 +165,7 @@ export default function SignUpScreen() {
             </Text>
           </View>
 
-          <Image
+          {/* <Image
   style={{
     resizeMode: "contain",
     width: 200,
@@ -174,9 +174,9 @@ export default function SignUpScreen() {
     top:-10,
   }}
   source={require("../assets/r2.jpg")} // Update the image path
-/>
+/> */}
           <View className="px-4">
-            <Text className="mt-4 mb-7 w-full text-center text-[11px] text-black">
+            {/* <Text className="mt-4 mb-7 w-full text-center text-[11px] text-black">
               {"By registering, you accept our "}
               <Text className="font-bold text-primary-400"style={{ color: "#A52A2A" }}>
                 Terms and Conditions
@@ -186,7 +186,7 @@ export default function SignUpScreen() {
                 Privacy Policy
               </Text>
               . Your data will be securely encrypted with TLS.
-            </Text>
+            </Text> */}
             
             <Pressable
   disabled={isSubmitting}
@@ -215,7 +215,7 @@ export default function SignUpScreen() {
 >
   <Text
     style={{
-      color: "#FFFFF", // Red color
+      color: "rgb(255,0,0)", // Red color
       borderRadius: 8, // You can adjust the border radius as needed
     }}
     className={classNames(
